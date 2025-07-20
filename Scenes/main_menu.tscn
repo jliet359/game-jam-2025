@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://ky8jjgr62hi2"]
+[gd_scene load_steps=4 format=3 uid="uid://ky8jjgr62hi2"]
 
 [ext_resource type="Texture2D" uid="uid://b7nkafrdn20xt" path="res://Sprites/Sprite-0002.png" id="1_28flt"]
+[ext_resource type="Script" uid="uid://r5p50omdi6l" path="res://Scripts/button.gd" id="2_48xlc"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_48xlc"]
 
@@ -19,7 +20,7 @@ grow_vertical = 2
 [node name="Sprite-0003" type="Sprite2D" parent="."]
 texture_filter = 1
 texture_repeat = 2
-position = Vector2(622, 345)
+position = Vector2(587, 333)
 scale = Vector2(15.5078, 8.52734)
 texture = ExtResource("1_28flt")
 
@@ -40,3 +41,4 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxTexture_48xlc")
 text = "Start Game"
+script = ExtResource("2_48xlc")
