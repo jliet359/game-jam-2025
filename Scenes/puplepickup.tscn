@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://c05wpbsr4v3d6"]
 
-[ext_resource type="Script" path="res://purperpowerup.gd" id="1_1juyo"]
+[ext_resource type="Script" uid="uid://dk0maprss1sc1" path="res://purperpowerup.gd" id="1_1juyo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4pbhh"]
 region = Rect2(0, 24, 24, 24)
