@@ -1,7 +1,28 @@
-[gd_scene load_steps=14 format=3 uid="uid://hsebfum41vl1"]
+[gd_scene load_steps=20 format=3 uid="uid://hsebfum41vl1"]
 
-[ext_resource type="Script" uid="uid://b7jb2nnncd4ux" path="res://Scripts/enemy.gd" id="2_1f0kj"]
+[ext_resource type="Script" path="res://Scripts/enemy.gd" id="2_1f0kj"]
 [ext_resource type="Texture2D" uid="uid://cvmdwm3p4q00v" path="res://Sprites/Grayson/man_1-Sheet.png" id="2_afpow"]
+[ext_resource type="Texture2D" uid="uid://cy8upwpj3s66p" path="res://Sprites/Grayson/man_falling.png" id="3_0p2qr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3xsj"]
+atlas = ExtResource("2_afpow")
+region = Rect2(0, 0, 65, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yisjx"]
+atlas = ExtResource("3_0p2qr")
+region = Rect2(0, 0, 65, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yet4j"]
+atlas = ExtResource("3_0p2qr")
+region = Rect2(65, 0, 65, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d33ux"]
+atlas = ExtResource("3_0p2qr")
+region = Rect2(130, 0, 65, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n5mv6"]
+atlas = ExtResource("3_0p2qr")
+region = Rect2(195, 0, 65, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1f0kj"]
 atlas = ExtResource("2_afpow")
@@ -37,6 +58,26 @@ region = Rect2(195, 0, 65, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ghaa6"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3xsj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yisjx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yet4j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d33ux")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n5mv6")
+}],
+"loop": false,
+"name": &"dead",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1f0kj")
@@ -92,7 +133,7 @@ texture_filter = 1
 position = Vector2(12, -113)
 scale = Vector2(3.48432, 3.61726)
 sprite_frames = SubResource("SpriteFrames_ghaa6")
-animation = &"idle"
+animation = &"dead"
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 position = Vector2(0, -16)
@@ -104,4 +145,9 @@ shape = SubResource("CircleShape2D_1dp5w")
 position = Vector2(0, -24)
 shape = SubResource("CircleShape2D_1f0kj")
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

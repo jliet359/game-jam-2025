@@ -4,14 +4,27 @@ var SPEED = 200.0
 const JUMP_VELOCITY = -400.0
 var is_player = false
 @onready var enemy: AnimatedSprite2D = $AnimatedSprite2D
+@onready var timer: Timer = $Timer
+
 
 func become_player():
 	is_player = true
 	modulate = Color(0, 1, 0)
-	
+	timer.wait_time = 10.0
+	timer.start()
 
 	
 	print("Enemy has become player!")
+	
+func _on_timer_timeout() -> void:
+	after_possess()
+
+func after_possess():
+	enemy.play("dead")
+	is_player = false
+	modulate = Color(1,1,1)
+	
+
 
 func _physics_process(delta: float) -> void:
 	if is_player:# Add the gravity.
