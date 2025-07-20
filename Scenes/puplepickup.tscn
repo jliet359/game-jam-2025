@@ -1,22 +1,17 @@
-[gd_scene load_steps=9 format=3 uid="uid://c05wpbsr4v3d6"]
+[gd_scene load_steps=8 format=3 uid="uid://c05wpbsr4v3d6"]
 
 [ext_resource type="Script" uid="uid://dk0maprss1sc1" path="res://purperpowerup.gd" id="1_1juyo"]
-[ext_resource type="Texture2D" uid="uid://ciude2o87i2qn" path="res://Sprites/brackeys_platformer_assets/sprites/slime_purple.png" id="2_3cyup"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4pbhh"]
-atlas = ExtResource("2_3cyup")
 region = Rect2(0, 24, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7eh2a"]
-atlas = ExtResource("2_3cyup")
 region = Rect2(24, 24, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c0nyr"]
-atlas = ExtResource("2_3cyup")
 region = Rect2(48, 24, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tmaxu"]
-atlas = ExtResource("2_3cyup")
 region = Rect2(72, 24, 24, 24)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rxc7t"]
