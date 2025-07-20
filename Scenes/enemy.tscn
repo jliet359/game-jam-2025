@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://hsebfum41vl1"]
 
-[ext_resource type="Script" uid="uid://b7jb2nnncd4ux" path="res://Scripts/enemy.gd" id="2_1f0kj"]
+[ext_resource type="Script" path="res://Scripts/enemy.gd" id="2_1f0kj"]
 [ext_resource type="Texture2D" uid="uid://cvmdwm3p4q00v" path="res://Sprites/Grayson/man_1-Sheet.png" id="2_afpow"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1f0kj"]
