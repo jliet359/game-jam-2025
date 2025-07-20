@@ -1,0 +1,59 @@
+[gd_scene load_steps=9 format=3 uid="uid://c7emobwjygx2i"]
+
+[ext_resource type="Script" uid="uid://bwmcrcw0e2766" path="res://Scripts/pickup.gd" id="1_cya6u"]
+[ext_resource type="Texture2D" uid="uid://gxxkwe3mtan3" path="res://Sprites/brackeys_platformer_assets/sprites/slime_green.png" id="1_v7u4w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cya6u"]
+atlas = ExtResource("1_v7u4w")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nya46"]
+atlas = ExtResource("1_v7u4w")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yxn47"]
+atlas = ExtResource("1_v7u4w")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cy16d"]
+atlas = ExtResource("1_v7u4w")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bwh4r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cya6u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nya46")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yxn47")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cy16d")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3bix2"]
+radius = 6.0
+
+[node name="PowerUp" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_cya6u")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_bwh4r")
+frame_progress = 0.728292
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_3bix2")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://c05wpbsr4v3d6"]
+
+[ext_resource type="Script" uid="uid://dk0maprss1sc1" path="res://purperpowerup.gd" id="1_1juyo"]
+[ext_resource type="Texture2D" uid="uid://ciude2o87i2qn" path="res://Sprites/brackeys_platformer_assets/sprites/slime_purple.png" id="2_3cyup"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4pbhh"]
+atlas = ExtResource("2_3cyup")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7eh2a"]
+atlas = ExtResource("2_3cyup")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c0nyr"]
+atlas = ExtResource("2_3cyup")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tmaxu"]
+atlas = ExtResource("2_3cyup")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rxc7t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4pbhh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7eh2a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c0nyr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tmaxu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o12m7"]
+radius = 5.0
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_1juyo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_rxc7t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_o12m7")
