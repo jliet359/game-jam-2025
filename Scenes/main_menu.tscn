@@ -17,6 +17,8 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Sprite-0003" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 2
 position = Vector2(622, 345)
 scale = Vector2(15.5078, 8.52734)
 texture = ExtResource("1_28flt")
