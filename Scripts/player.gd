@@ -8,9 +8,10 @@ const JUMP_VELOCITY = -400.0
 @onready var camera = $Camera2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape_2d: CollisionShape2D = $PossessArea/CollisionShape2D
+@onready var timer: Timer = $Timer
 
-func _ready():
-	possess_area.body_entered.connect(_on_possess_area_body_entered)
+# func _ready():
+# 	possess_area.body_entered.connect(_on_possess_area_body_entered)
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -61,8 +62,9 @@ func _on_possess_area_body_entered(body):
 		body.become_player()
 		# queue_free()
 		player.visible = false
-		var timer = body.get_node("Timer")
-		timer.connect("timeout", self, "_on_timer_timeout")
+		timer.wait_time = 3.0
+		timer.start()
 		
-func player_visible():
+func _on_timer_timeout() -> void:
+	print("Player visible")
 	player.visible = true

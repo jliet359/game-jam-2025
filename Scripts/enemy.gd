@@ -8,12 +8,14 @@ var is_player = false
 @onready var enemy: AnimatedSprite2D = $AnimatedSprite2D
 @onready var timer: Timer = $Timer
 @onready var collision_shape_2d: CollisionShape2D = $Area2D/CollisionShape2D
+@onready var area_2d: Area2D = $Area2D
+@onready var collision_shape_2d_2: CollisionShape2D = $CollisionShape2D2
 
 
 func become_player():
 	is_player = true
 	modulate = Color(0, 1, 0)
-	timer.wait_time = 1.0
+	timer.wait_time = 3.0
 	timer.start()
 	
 	print("Enemy has become player!")
@@ -25,6 +27,9 @@ func after_possess():
 	enemy.play("dead")
 	is_player = false
 	modulate = Color(0.43,0.15,0.05)
+	remove_child(area_2d)
+	remove_child(collision_shape_2d_2)
+	# $Area2D.disconnect("body_entered", become_player())
 
 
 func _physics_process(delta: float) -> void:
