@@ -3,16 +3,18 @@ extends CharacterBody2D
 var SPEED = 200.0
 const JUMP_VELOCITY = -400.0
 var is_player = false
+
+@onready var player: CharacterBody2D = $"."
 @onready var enemy: AnimatedSprite2D = $AnimatedSprite2D
 @onready var timer: Timer = $Timer
+@onready var collision_shape_2d: CollisionShape2D = $Area2D/CollisionShape2D
 
 
 func become_player():
 	is_player = true
 	modulate = Color(0, 1, 0)
-	timer.wait_time = 10.0
+	timer.wait_time = 1.0
 	timer.start()
-
 	
 	print("Enemy has become player!")
 	
@@ -22,8 +24,7 @@ func _on_timer_timeout() -> void:
 func after_possess():
 	enemy.play("dead")
 	is_player = false
-	modulate = Color(1,1,1)
-	
+	modulate = Color(0.43,0.15,0.05)
 
 
 func _physics_process(delta: float) -> void:

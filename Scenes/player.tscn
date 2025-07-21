@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://buo8okfhienth"]
 
-[ext_resource type="Script" path="res://Scripts/player.gd" id="1_cvnsp"]
+[ext_resource type="Script" uid="uid://d2711a56r7i7i" path="res://Scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://daesbq7nmewlq" path="res://Sprites/Grayson/onlyone_blob2.png" id="2_cvnsp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3smsa"]
