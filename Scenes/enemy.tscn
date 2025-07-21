@@ -139,15 +139,16 @@ animation = &"dead"
 position = Vector2(0, -16)
 shape = SubResource("CircleShape2D_1dp5w")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." groups=["enemies"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, -24)
 shape = SubResource("CircleShape2D_1f0kj")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." groups=["enemies"]]
 wait_time = 10.0
 one_shot = true
 
-[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[node name="Camera2D" type="Camera2D" parent="."]
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
