@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=4 uid="uid://b8ls8kvey2fqi"]
+[gd_scene load_steps=10 format=4 uid="uid://b8ls8kvey2fqi"]
 
 [ext_resource type="Script" path="res://Scripts/levelone.gd" id="1_bq8sc"]
 [ext_resource type="Texture2D" uid="uid://ncqlwm6mqm07" path="res://Sprites/brackeys_platformer_assets/sprites/world_tileset.png" id="1_r1bm7"]
 [ext_resource type="PackedScene" uid="uid://buo8okfhienth" path="res://Scenes/player.tscn" id="2_o72e6"]
 [ext_resource type="PackedScene" uid="uid://hsebfum41vl1" path="res://Scenes/enemy.tscn" id="3_n02qu"]
 [ext_resource type="PackedScene" uid="uid://c7emobwjygx2i" path="res://Scenes/pickup.tscn" id="4_g74hv"]
+[ext_resource type="PackedScene" uid="uid://rougwfvelx3y" path="res://Scenes/enemy3.tscn" id="6_kowmk"]
+[ext_resource type="PackedScene" uid="uid://dmfaw7gt30gns" path="res://Scenes/enemy2.tscn" id="6_xqsho"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r1bm7"]
 texture = ExtResource("1_r1bm7")
@@ -145,14 +147,14 @@ tile_set = SubResource("TileSet_o72e6")
 position = Vector2(49, 443)
 
 [node name="Enemy" parent="." instance=ExtResource("3_n02qu")]
-position = Vector2(802, 448)
-
-[node name="Enemy2" parent="." instance=ExtResource("3_n02qu")]
-position = Vector2(1729, 448)
-
-[node name="Enemy3" parent="." instance=ExtResource("3_n02qu")]
-position = Vector2(2549, 451)
+position = Vector2(1299, 447)
 
 [node name="Area2D" parent="." instance=ExtResource("4_g74hv")]
-position = Vector2(1032, 448)
+position = Vector2(4526, 447)
 scale = Vector2(2.50333, 2.59557)
+
+[node name="Enemy2" parent="." instance=ExtResource("6_xqsho")]
+position = Vector2(2095, 447)
+
+[node name="Enemy3" parent="." instance=ExtResource("6_kowmk")]
+position = Vector2(3038, 447)

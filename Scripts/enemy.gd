@@ -16,8 +16,8 @@ func become_player():
 	modulate = Color(0, 1, 0)
 	timer.wait_time = 3.0
 	timer.start()
-	
-	
+	can_be_possessed = false
+
 	print("Enemy has become player!")
 	
 func _on_timer_timeout() -> void:
@@ -26,7 +26,6 @@ func _on_timer_timeout() -> void:
 func after_possess():
 	enemy.play("dead")
 	is_player = false
-	can_be_possessed = false
 	remove_child(collision)
 	modulate = Color(0.43,0.15,0.05)
 

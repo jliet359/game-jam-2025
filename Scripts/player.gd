@@ -45,7 +45,8 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 func _on_possess_area_body_entered(body):
-	print("PossessArea entered by: ", body.name)
+
+	
 	
 	if body.is_in_group("enemies") and body.has_method("become_player") and body.can_be_possessed:
 		
@@ -53,7 +54,7 @@ func _on_possess_area_body_entered(body):
 		player.visible = false
 		timer.wait_time = 3.0
 		timer.start()
-
+		print("PossessArea entered by: ", body.name)
 
 func _on_timer_timeout() -> void:
 	player.visible = true
