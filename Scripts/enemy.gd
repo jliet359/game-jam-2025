@@ -22,7 +22,7 @@ func _on_timer_timeout() -> void:
 func after_possess():
 	enemy.play("dead")
 	is_player = false
-	modulate = Color(1,1,1)
+	modulate = Color(0.43,0.15,0.05)
 	
 
 
