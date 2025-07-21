@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://hsebfum41vl1"]
+[gd_scene load_steps=23 format=3 uid="uid://hsebfum41vl1"]
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="2_1f0kj"]
 [ext_resource type="Texture2D" uid="uid://cvmdwm3p4q00v" path="res://Sprites/Grayson/man_1-Sheet.png" id="2_afpow"]
@@ -124,7 +124,45 @@ radius = 15.0333
 [sub_resource type="CircleShape2D" id="CircleShape2D_1f0kj"]
 radius = 25.0799
 
+[sub_resource type="Animation" id="Animation_vf1su"]
+resource_name = "die"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.43, 0.15, 0.05, 1), Color(0.43, 0.15, 0.05, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_5vsc4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.43, 0.15, 0.05, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ycd1w"]
+_data = {
+"RESET": SubResource("Animation_5vsc4"),
+"die": SubResource("Animation_vf1su")
+}
+
 [node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
+modulate = Color(0.43, 0.15, 0.05, 1)
 collision_layer = 3
 script = ExtResource("2_1f0kj")
 
@@ -151,4 +189,13 @@ one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+reset_on_save = false
+libraries = {
+"": SubResource("AnimationLibrary_ycd1w")
+}
+
+[node name="Timer2" type="Timer" parent="."]
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]

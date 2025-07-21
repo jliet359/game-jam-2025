@@ -5,12 +5,19 @@ const JUMP_VELOCITY = -400.0
 var is_player = false
 var can_be_possessed = true
 
+
 @onready var enemy: AnimatedSprite2D = $AnimatedSprite2D
 @onready var timer: Timer = $Timer
 @onready var possess_area: Area2D = $Area2D
 @onready var collision: CollisionShape2D = $CollisionShape2D2
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var timer_2: Timer = $Timer2
 
 
+func _ready():
+	modulate = Color(1, 1, 1)  # Reset to default white
+	
+	
 func become_player():
 	is_player = true
 	modulate = Color(0, 1, 0)
@@ -28,6 +35,14 @@ func after_possess():
 	is_player = false
 	remove_child(collision)
 	modulate = Color(0.43,0.15,0.05)
+	timer_2.wait_time = 6.0
+	timer_2.start()
+
+func _on_timer_2_timeout() -> void:
+	animation_player.play("die")
+	await animation_player.animation_finished
+	queue_free() 
+
 
 func _physics_process(delta: float) -> void:
 	if is_player:# Add the gravity.
