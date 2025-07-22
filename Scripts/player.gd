@@ -13,15 +13,17 @@ const JUMP_VELOCITY = -400.0
 
 var player_dead = false
 
+
 func _ready():
 	add_to_group("player")
 	possess_area.body_entered.connect(_on_possess_area_body_entered)
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+	
 	if player_dead == false:
-		if not is_on_floor():
-			velocity += get_gravity() * delta
 
 		# Handle jump.
 		if Input.is_action_just_pressed("jump") and is_on_floor():
@@ -47,21 +49,23 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 
-		move_and_slide()
+	move_and_slide()
 	
 func _on_possess_area_body_entered(body):
+	
 	if body.is_in_group("enemies") and body.has_method("become_player") and body.can_be_possessed:
 		live.reset_health()
+		
+		animated_sprite_2d.modulate.a = 0.0
+		
 		body.become_player()
-		player.visible = false
 		timer.wait_time = 3.0
 		timer.start()
 		print("PossessArea entered by: ", body.name)
 
 func _on_timer_timeout() -> void:
-	player.visible = true
-	player.set_process(true)
-	
+	pass
+
 func player_died():
 	player_dead = true
 	animated_sprite_2d.stop()

@@ -5,7 +5,6 @@ const JUMP_VELOCITY = -400.0
 var is_player = false
 var can_be_possessed = true
 
-
 @onready var enemy: AnimatedSprite2D = $AnimatedSprite2D
 @onready var timer: Timer = $Timer
 @onready var possess_area: Area2D = $Area2D
@@ -34,11 +33,17 @@ func after_possess():
 	enemy.play("dead")
 	is_player = false
 	remove_child(collision)
+	# Make the original player visible again
+	var player = get_tree().get_first_node_in_group("player")
+	if player:
+		player.animated_sprite_2d.modulate.a = 1.0
+		
 	modulate = Color(0.43,0.15,0.05)
 	timer_2.wait_time = 6.0
 	timer_2.start()
 
 func _on_timer_2_timeout() -> void:
+	
 	animation_player.play("die")
 	await animation_player.animation_finished
 	queue_free() 
