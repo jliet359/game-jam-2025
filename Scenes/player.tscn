@@ -1,8 +1,8 @@
 [gd_scene load_steps=18 format=3 uid="uid://buo8okfhienth"]
 
-[ext_resource type="Script" uid="uid://d2711a56r7i7i" path="res://Scripts/player.gd" id="1_cvnsp"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://daesbq7nmewlq" path="res://Sprites/Grayson/onlyone_blob2.png" id="2_cvnsp"]
-[ext_resource type="Script" uid="uid://c7duh4dgusp1" path="res://Scenes/progress_bar.gd" id="3_6t5aa"]
+[ext_resource type="Script" path="res://Scenes/progress_bar.gd" id="3_6t5aa"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3smsa"]
 atlas = ExtResource("2_cvnsp")
@@ -75,6 +75,21 @@ size = Vector2(28, 11)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fkybt"]
 bg_color = Color(0.342493, 0.702361, 0, 1)
 
+[sub_resource type="Animation" id="Animation_vgqql"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_6t5aa"]
 resource_name = "die"
 length = 3.0
@@ -91,25 +106,10 @@ tracks/0/keys = {
 "values": [Vector2(1, 1), Vector2(1.93, 0.195)]
 }
 
-[sub_resource type="Animation" id="Animation_vgqql"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fkybt"]
 _data = {
-&"RESET": SubResource("Animation_vgqql"),
-&"die": SubResource("Animation_6t5aa")
+"RESET": SubResource("Animation_vgqql"),
+"die": SubResource("Animation_6t5aa")
 }
 
 [node name="Player" type="CharacterBody2D"]
@@ -153,7 +153,7 @@ total_duration = 8.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_fkybt")
+"": SubResource("AnimationLibrary_fkybt")
 }
 
 [connection signal="body_entered" from="PossessArea" to="." method="_on_area_2d_body_entered"]
