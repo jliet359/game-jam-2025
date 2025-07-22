@@ -70,11 +70,6 @@ size = Vector2(26, 9)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cvnsp"]
 size = Vector2(28, 11)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vgqql"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fkybt"]
-bg_color = Color(0.342493, 0.702361, 0, 1)
-
 [sub_resource type="Animation" id="Animation_vgqql"]
 length = 0.001
 tracks/0/type = "value"
@@ -112,6 +107,11 @@ _data = {
 "die": SubResource("Animation_6t5aa")
 }
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vgqql"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fkybt"]
+bg_color = Color(0.342493, 0.702361, 0, 1)
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 3
 script = ExtResource("1_cvnsp")
@@ -137,6 +137,11 @@ shape = SubResource("RectangleShape2D_cvnsp")
 
 [node name="Timer" type="Timer" parent="." groups=["player"]]
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fkybt")
+}
+
 [node name="Live" type="ProgressBar" parent="."]
 z_index = 1
 offset_left = -580.0
@@ -153,15 +158,10 @@ total_duration = 8.0
 
 [node name="ColorRect" type="ColorRect" parent="Live"]
 show_behind_parent = true
+layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 66.0
 color = Color(1, 0, 0, 1)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Live"]
-root_node = NodePath("../..")
-libraries = {
-"": SubResource("AnimationLibrary_fkybt")
-}
 
 [connection signal="body_entered" from="PossessArea" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
