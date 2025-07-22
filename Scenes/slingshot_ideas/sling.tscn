@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://ct6ni3bkmo3mu"]
+
+[ext_resource type="PackedScene" uid="uid://fjl4c1cqruac" path="res://Scenes/line2denemysling.tscn" id="1_ct2t0"]
+[ext_resource type="PackedScene" uid="uid://15c8bmf78s4x" path="res://Scenes/rigidbodyplayer.tscn" id="2_ed4vp"]
+[ext_resource type="PackedScene" uid="uid://nkh0q07j0xqf" path="res://Scenes/slingplayer.tscn" id="3_yxpd1"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1vb3t"]
+
+[node name="Sling" type="Node2D"]
+
+[node name="SlingShotLine" parent="." instance=ExtResource("1_ct2t0")]
+
+[node name="SlingShotPlayer" parent="." instance=ExtResource("2_ed4vp")]
+position = Vector2(495, 292)
+
+[node name="SlingPlayer" parent="." instance=ExtResource("3_yxpd1")]
+visible = false
+position = Vector2(495, 240)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(495, 292)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 39)
+scale = Vector2(6.8, 1)
+shape = SubResource("WorldBoundaryShape2D_1vb3t")

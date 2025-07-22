@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://15c8bmf78s4x"]
+
+[ext_resource type="Script" path="res://Scripts/sling_shot_player.gd" id="1_x4o2u"]
+[ext_resource type="Texture2D" uid="uid://daesbq7nmewlq" path="res://Sprites/Grayson/onlyone_blob2.png" id="2_weupd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m4254"]
+size = Vector2(25, 9)
+
+[node name="SlingShotPlayer" type="RigidBody2D"]
+script = ExtResource("1_x4o2u")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -14)
+texture = ExtResource("2_weupd")
+hframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -5.5)
+shape = SubResource("RectangleShape2D_m4254")

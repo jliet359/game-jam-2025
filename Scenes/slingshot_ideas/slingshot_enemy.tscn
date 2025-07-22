@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_3bb1a"]
 [ext_resource type="Texture2D" uid="uid://cvmdwm3p4q00v" path="res://Sprites/Grayson/man_1-Sheet.png" id="2_l4ib7"]
 [ext_resource type="Texture2D" uid="uid://cy8upwpj3s66p" path="res://Sprites/Grayson/man_falling.png" id="3_3kfo0"]
-[ext_resource type="Script" path="res://Scenes/sling_shot_area.gd" id="4_oem2x"]
+[ext_resource type="Script" path="res://Scripts/sling_shot_area.gd" id="4_oem2x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k3xsj"]
 atlas = ExtResource("2_l4ib7")

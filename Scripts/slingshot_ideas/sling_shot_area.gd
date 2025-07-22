@@ -19,10 +19,10 @@ func _draw() -> void:
 	
 	# Draw from the center of the collision shape to the current mouse position
 	# Both coordinates are now in local space
-	draw_line(center, position_end, Color.BLUE, 8)
+	draw_line(center, position_end, Color.BLUE, 2)
 	
 	# Draw the vector line
-	draw_line(center, center + vector, Color.RED, 16)
+	draw_line(center, center + vector, Color.RED, 2)
 
 func _reset() -> void:
 	position_start = Vector2.ZERO

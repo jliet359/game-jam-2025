@@ -1,31 +1,31 @@
-[gd_scene load_steps=18 format=3 uid="uid://buo8okfhienth"]
+[gd_scene load_steps=18 format=3 uid="uid://nkh0q07j0xqf"]
 
-[ext_resource type="Script" path="res://Scripts/player.gd" id="1_cvnsp"]
-[ext_resource type="Texture2D" uid="uid://daesbq7nmewlq" path="res://Sprites/Grayson/onlyone_blob2.png" id="2_cvnsp"]
-[ext_resource type="Script" path="res://Scripts/progress_bar.gd" id="3_6t5aa"]
+[ext_resource type="Script" path="res://Scripts/slingplayer.gd" id="1_tnwwq"]
+[ext_resource type="Texture2D" uid="uid://daesbq7nmewlq" path="res://Sprites/Grayson/onlyone_blob2.png" id="2_oxj23"]
+[ext_resource type="Script" path="res://Scripts/progress_bar.gd" id="3_3j71x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3smsa"]
-atlas = ExtResource("2_cvnsp")
+atlas = ExtResource("2_oxj23")
 region = Rect2(0, 0, 33, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cvnsp"]
-atlas = ExtResource("2_cvnsp")
+atlas = ExtResource("2_oxj23")
 region = Rect2(0, 0, 33, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x3wgy"]
-atlas = ExtResource("2_cvnsp")
+atlas = ExtResource("2_oxj23")
 region = Rect2(33, 0, 33, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6t5aa"]
-atlas = ExtResource("2_cvnsp")
+atlas = ExtResource("2_oxj23")
 region = Rect2(0, 0, 33, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vgqql"]
-atlas = ExtResource("2_cvnsp")
+atlas = ExtResource("2_oxj23")
 region = Rect2(33, 0, 33, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fkybt"]
-atlas = ExtResource("2_cvnsp")
+atlas = ExtResource("2_oxj23")
 region = Rect2(66, 0, 33, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_x3wgy"]
@@ -136,9 +136,9 @@ _data = {
 "die": SubResource("Animation_6t5aa")
 }
 
-[node name="Player" type="CharacterBody2D"]
+[node name="SlingPlayer" type="CharacterBody2D"]
 collision_layer = 3
-script = ExtResource("1_cvnsp")
+script = ExtResource("1_tnwwq")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-5, -14)
@@ -162,6 +162,7 @@ shape = SubResource("RectangleShape2D_cvnsp")
 [node name="Timer" type="Timer" parent="." groups=["player"]]
 
 [node name="Live" type="ProgressBar" parent="."]
+visible = false
 z_index = 1
 offset_left = -580.0
 offset_top = 240.0
@@ -170,7 +171,7 @@ offset_bottom = 306.0
 theme_override_styles/background = SubResource("StyleBoxEmpty_vgqql")
 theme_override_styles/fill = SubResource("StyleBoxFlat_fkybt")
 show_percentage = false
-script = ExtResource("3_6t5aa")
+script = ExtResource("3_3j71x")
 total_duration = 8.0
 
 [node name="LiveTimer" type="Timer" parent="Live"]
