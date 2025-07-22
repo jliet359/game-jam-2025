@@ -16,7 +16,6 @@ func _ready():
 	
 	live_timer.wait_time = tick_rate  # e.g., 0.1 seconds
 	live_timer.one_shot = false
-	live_timer.timeout.connect(_on_live_timer_timeout)
 	
 	decay_rate = health / (total_duration / tick_rate)
 	live_timer.start()
