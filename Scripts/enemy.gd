@@ -11,6 +11,8 @@ var can_be_possessed = true
 @onready var collision: CollisionShape2D = $CollisionShape2D2
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var timer_2: Timer = $Timer2
+@onready var head_area: Area2D = $HeadArea
+
 
 
 func _ready():
@@ -18,6 +20,26 @@ func _ready():
 	
 	
 func become_player():
+	var player = get_tree().get_first_node_in_group("player")
+	print("Found player:", player)
+	
+	if player:
+		# Get the Area2D on the head (adjust the path to your actual Area2D node)
+		if has_node("HeadArea"):
+			var head_area = get_node("HeadArea")
+			print("Found head area at:", head_area.global_position)
+			
+			player.set_deferred("global_position", head_area.global_position)
+			
+			if player.has_method("set_linear_velocity") or "linear_velocity" in player:
+				player.linear_velocity = Vector2.ZERO
+				print("Player moved to head area at: ", head_area.global_position)
+		else:
+			print("Head area not found on: ", self.name)
+	else:
+		print("Player not found!")
+		
+		
 	is_player = true
 	modulate = Color(0, 1, 0)
 	timer.wait_time = 3.0
@@ -33,10 +55,14 @@ func after_possess():
 	enemy.play("dead")
 	is_player = false
 	remove_child(collision)
-	# Make the original player visible again
-	var player = get_tree().get_first_node_in_group("player")
+
+	# Use actual node path (adjust path as needed)
+	var player = get_node("../RigidBodyPlayer")  # or whatever the actual path is
 	if player:
 		player.animated_sprite_2d.modulate.a = 1.0
+		print("Player found and made visible!")
+	else:
+		print("Player not found at path!")
 		
 	modulate = Color(0.43,0.15,0.05)
 	timer_2.wait_time = 6.0

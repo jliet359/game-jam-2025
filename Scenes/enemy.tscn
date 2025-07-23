@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://hsebfum41vl1"]
+[gd_scene load_steps=24 format=3 uid="uid://hsebfum41vl1"]
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="2_1f0kj"]
 [ext_resource type="Texture2D" uid="uid://cvmdwm3p4q00v" path="res://Sprites/Grayson/man_1-Sheet.png" id="2_afpow"]
@@ -161,6 +161,9 @@ _data = {
 "die": SubResource("Animation_vf1su")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_0v2dm"]
+radius = 23.6008
+
 [node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
 modulate = Color(0.43, 0.15, 0.05, 1)
 collision_layer = 3
@@ -196,6 +199,12 @@ libraries = {
 }
 
 [node name="Timer2" type="Timer" parent="."]
+
+[node name="HeadArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HeadArea"]
+position = Vector2(8, -189)
+shape = SubResource("CircleShape2D_0v2dm")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]

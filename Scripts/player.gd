@@ -26,7 +26,8 @@ func _physics_process(delta: float) -> void:
 	if player_dead == false:
 
 		# Handle jump.
-		if Input.is_action_just_pressed("jump") and is_on_floor():
+		if Input.is_action_just_pressed("jump"):
+			print("jump")
 			velocity.y = JUMP_VELOCITY
 		# Get the input direction and handle the movement/deceleration.
 		# Gets input direction: -1,0,1
