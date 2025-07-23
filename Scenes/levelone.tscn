@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://b8ls8kvey2fqi"]
+[gd_scene load_steps=18 format=4 uid="uid://b8ls8kvey2fqi"]
 
 [ext_resource type="Script" path="res://Scripts/levelone.gd" id="1_bq8sc"]
 [ext_resource type="Texture2D" uid="uid://ncqlwm6mqm07" path="res://Sprites/brackeys_platformer_assets/sprites/world_tileset.png" id="1_r1bm7"]
@@ -7,6 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://c7emobwjygx2i" path="res://Scenes/pickup.tscn" id="4_g74hv"]
 [ext_resource type="PackedScene" uid="uid://rougwfvelx3y" path="res://Scenes/enemy3.tscn" id="6_kowmk"]
 [ext_resource type="PackedScene" uid="uid://dmfaw7gt30gns" path="res://Scenes/enemy2.tscn" id="6_xqsho"]
+[ext_resource type="PackedScene" uid="uid://bglcd2ab12kn2" path="res://Scenes/door.tscn" id="8_cbuul"]
+[ext_resource type="Script" path="res://Scenes/firstdoor.gd" id="9_tk4ag"]
+[ext_resource type="Texture2D" uid="uid://brpqon8nb8xao" path="res://Sprites/Grayson/door.png" id="10_deg6i"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r1bm7"]
 texture = ExtResource("1_r1bm7")
@@ -136,6 +139,38 @@ texture = ExtResource("1_r1bm7")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_r1bm7")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pat76"]
+size = Vector2(87, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6tye3"]
+atlas = ExtResource("10_deg6i")
+region = Rect2(0, 0, 87, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dg8s1"]
+atlas = ExtResource("10_deg6i")
+region = Rect2(87, 0, 87, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wlcoq"]
+atlas = ExtResource("10_deg6i")
+region = Rect2(174, 0, 87, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4yuwo"]
+animations = [{
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_6tye3")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_dg8s1")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_wlcoq")
+}],
+"loop": false,
+"name": &"open",
+"speed": 5.0
+}]
+
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_bq8sc")
 
@@ -158,3 +193,24 @@ position = Vector2(2095, 447)
 
 [node name="Enemy3" parent="." instance=ExtResource("6_kowmk")]
 position = Vector2(3038, 447)
+
+[node name="Door" parent="." instance=ExtResource("8_cbuul")]
+show_behind_parent = true
+texture_filter = 1
+position = Vector2(3821, 305)
+scale = Vector2(5.38351, 4.74611)
+
+[node name="Area2D2" type="Area2D" parent="Door"]
+script = ExtResource("9_tk4ag")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Door/Area2D2"]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_pat76")
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Door"]
+sprite_frames = SubResource("SpriteFrames_4yuwo")
+animation = &"open"
+frame_progress = 0.93241
+
+[connection signal="body_entered" from="Door/Area2D2" to="Door/Area2D2" method="_on_body_entered"]
+[connection signal="body_exited" from="Door/Area2D2" to="Door/Area2D2" method="_on_body_exited"]

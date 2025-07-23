@@ -1,6 +1,6 @@
-[gd_scene load_steps=18 format=3 uid="uid://nkh0q07j0xqf"]
+[gd_scene load_steps=18 format=3 uid="uid://cd57on1f1esrk"]
 
-[ext_resource type="Script" path="res://Scripts/slingplayer.gd" id="1_tnwwq"]
+[ext_resource type="Script" path="res://Scripts/slingshot_ideas/slingplayer.gd" id="1_tnwwq"]
 [ext_resource type="Texture2D" uid="uid://daesbq7nmewlq" path="res://Sprites/Grayson/onlyone_blob2.png" id="2_oxj23"]
 [ext_resource type="Script" path="res://Scripts/progress_bar.gd" id="3_3j71x"]
 

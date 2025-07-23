@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://15c8bmf78s4x"]
+[gd_scene load_steps=4 format=3 uid="uid://di8gyjw4u4q3d"]
 
-[ext_resource type="Script" path="res://Scripts/sling_shot_player.gd" id="1_x4o2u"]
+[ext_resource type="Script" path="res://Scripts/slingshot_ideas/sling_shot_player.gd" id="1_x4o2u"]
 [ext_resource type="Texture2D" uid="uid://daesbq7nmewlq" path="res://Sprites/Grayson/onlyone_blob2.png" id="2_weupd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m4254"]

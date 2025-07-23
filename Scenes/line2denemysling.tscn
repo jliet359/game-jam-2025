@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://pqgd7x0a2ov6"]
-
-[ext_resource type="Script" path="res://Scripts/line_2d.gd" id="4_45lgc"]
-
-[node name="SlingShotLine" type="Line2D"]
-points = PackedVector2Array(0, 0, 0, 0)
-script = ExtResource("4_45lgc")

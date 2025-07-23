@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://bglcd2ab12kn2"]
+
+[ext_resource type="Script" path="res://Scenes/firstdoor.gd" id="1_xrm1x"]
+[ext_resource type="Texture2D" uid="uid://brpqon8nb8xao" path="res://Sprites/Grayson/door.png" id="2_tgach"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5bur2"]
+size = Vector2(87, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6tye3"]
+atlas = ExtResource("2_tgach")
+region = Rect2(0, 0, 87, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dg8s1"]
+atlas = ExtResource("2_tgach")
+region = Rect2(87, 0, 87, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wlcoq"]
+atlas = ExtResource("2_tgach")
+region = Rect2(174, 0, 87, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1oxbx"]
+animations = [{
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_6tye3")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_dg8s1")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_wlcoq")
+}],
+"loop": true,
+"name": &"open",
+"speed": 5.0
+}]
+
+[node name="Door" type="Node2D"]
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("1_xrm1x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_5bur2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_1oxbx")
+animation = &"open"
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]
