@@ -114,7 +114,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 func _on_possess_area_body_entered(body):
 	if body.is_in_group("enemies") and body.has_method("become_player") and body.can_be_possessed:
 		live.reset_health()
-		#animated_sprite_2d.modulate.a = 0.0
+		animated_sprite_2d.modulate.a = 0.0
 		body.become_player()
 		timer.wait_time = 3.0
 		timer.start()

@@ -11,7 +11,7 @@ var can_be_possessed = true
 @onready var collision: CollisionShape2D = $CollisionShape2D2
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var timer_2: Timer = $Timer2
-@onready var head_area: Area2D = $HeadArea
+
 
 
 
@@ -21,32 +21,14 @@ func _ready():
 	
 func become_player():
 	var player = get_tree().get_first_node_in_group("player")
-	print("Found player:", player)
-	
-	if player:
-		# Get the Area2D on the head (adjust the path to your actual Area2D node)
-		if has_node("HeadArea"):
-			var head_area = get_node("HeadArea")
-			print("Found head area at:", head_area.global_position)
-			
-			player.set_deferred("global_position", head_area.global_position)
-			
-			if player.has_method("set_linear_velocity") or "linear_velocity" in player:
-				player.linear_velocity = Vector2.ZERO
-				print("Player moved to head area at: ", head_area.global_position)
-		else:
-			print("Head area not found on: ", self.name)
-	else:
-		print("Player not found!")
-		
-		
+	#print("Found player:", player)
 	is_player = true
-	modulate = Color(0, 1, 0)
-	timer.wait_time = 3.0
+	enemy.modulate = Color(0, 1, 0)
+	timer.wait_time = 10.0
 	timer.start()
 	can_be_possessed = false
 
-	print("Enemy has become player!")
+	#print("Enemy has become player!")
 	
 func _on_timer_timeout() -> void:
 	after_possess()
@@ -57,22 +39,37 @@ func after_possess():
 	remove_child(collision)
 
 	# Use actual node path (adjust path as needed)
-	var player = get_node("../RigidBodyPlayer")  # or whatever the actual path is
+	var player = get_node("../Player")  # or whatever the actual path is
 	if player:
 		player.animated_sprite_2d.modulate.a = 1.0
-		print("Player found and made visible!")
+		#print("Player found and made visible!")
 	else:
-		print("Player not found at path!")
+		pass
+		#print("Player not found at path!")
 		
-	modulate = Color(0.43,0.15,0.05)
 	timer_2.wait_time = 6.0
 	timer_2.start()
 
 func _on_timer_2_timeout() -> void:
+	var sling = get_node_or_null("Sling")
+	if sling:
+		print("Found Sling, about to move it")
+		var scene_root = get_parent()
+		print("Scene root: ", scene_root.name)
+		
+		remove_child(sling)
+		print("Removed Sling from Enemy")
+		
+		scene_root.add_child(sling)
+		print("Added Sling to ", scene_root.name)
+		print("Moved Sling to safety")
+	else:
+		print("Sling not found!")
 	
 	animation_player.play("die")
 	await animation_player.animation_finished
-	queue_free() 
+	print("About to free Enemy")
+	queue_free()
 
 
 func _physics_process(delta: float) -> void:

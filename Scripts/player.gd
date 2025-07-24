@@ -26,8 +26,7 @@ func _physics_process(delta: float) -> void:
 	if player_dead == false:
 
 		# Handle jump.
-		if Input.is_action_just_pressed("jump"):
-			print("jump")
+		if Input.is_action_just_pressed("jump") and is_on_floor():
 			velocity.y = JUMP_VELOCITY
 		# Get the input direction and handle the movement/deceleration.
 		# Gets input direction: -1,0,1
@@ -64,7 +63,7 @@ func _on_possess_area_body_entered(body):
 		body.become_player()
 		timer.wait_time = 3.0
 		timer.start()
-		print("PossessArea entered by: ", body.name)
+		#print("PossessArea entered by: ", body.name)
 
 func _on_timer_timeout() -> void:
 	pass

@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://c0qp20xtlrk2e"]
+
+[ext_resource type="Script" path="res://Scenes/slingshot_ideas/sling.gd" id="1_m2vhh"]
+[ext_resource type="PackedScene" uid="uid://di8gyjw4u4q3d" path="res://Scenes/slingshot_ideas/rigidbodyplayer.tscn" id="2_lc4fa"]
+[ext_resource type="PackedScene" uid="uid://pqgd7x0a2ov6" path="res://Scenes/slingshot_ideas/line2denemysling.tscn" id="3_cidyk"]
+[ext_resource type="Script" path="res://Scenes/slingshot_ideas/direction_line.gd" id="4_n2qrt"]
+
+[node name="Sling" type="Node2D" groups=["sling"]]
+script = ExtResource("1_m2vhh")
+
+[node name="SlingShotPlayer" parent="." instance=ExtResource("2_lc4fa")]
+position = Vector2(601, 303)
+
+[node name="SlingShotLine" parent="." instance=ExtResource("3_cidyk")]
+
+[node name="DirectionLine" type="Line2D" parent="."]
+script = ExtResource("4_n2qrt")

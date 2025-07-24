@@ -1,8 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://bl8io7qmekim2"]
+[gd_scene load_steps=15 format=3 uid="uid://bl8io7qmekim2"]
 
 [ext_resource type="Texture2D" uid="uid://daesbq7nmewlq" path="res://Sprites/Grayson/onlyone_blob2.png" id="1_abjst"]
 [ext_resource type="Script" path="res://Scenes/rigid_body_player.gd" id="1_yo3gp"]
-[ext_resource type="Script" path="res://Scripts/progress_bar.gd" id="2_crkk7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3smsa"]
 atlas = ExtResource("1_abjst")
@@ -131,18 +130,14 @@ _data = {
 "die": SubResource("Animation_6t5aa")
 }
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tl08h"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_abjq7"]
-bg_color = Color(0.342493, 0.702361, 0, 1)
-
-[node name="RigidBody2D" type="RigidBody2D" groups=["player"]]
+[node name="RigidBody2D" type="RigidBody2D"]
 gravity_scale = 0.0
 contact_monitor = true
 max_contacts_reported = 10
 script = ExtResource("1_yo3gp")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+visible = false
 position = Vector2(-5, -14)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -167,26 +162,3 @@ shape = SubResource("RectangleShape2D_48i6b")
 libraries = {
 "": SubResource("AnimationLibrary_fkybt")
 }
-
-[node name="Live" type="ProgressBar" parent="."]
-z_index = 1
-offset_left = -580.0
-offset_top = 240.0
-offset_right = 572.0
-offset_bottom = 306.0
-theme_override_styles/background = SubResource("StyleBoxEmpty_tl08h")
-theme_override_styles/fill = SubResource("StyleBoxFlat_abjq7")
-show_percentage = false
-script = ExtResource("2_crkk7")
-total_duration = 8.0
-
-[node name="LiveTimer" type="Timer" parent="Live"]
-
-[node name="ColorRect" type="ColorRect" parent="Live"]
-show_behind_parent = true
-layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 66.0
-color = Color(1, 0, 0, 1)
-
-[connection signal="timeout" from="Live/LiveTimer" to="Live" method="_on_live_timer_timeout"]
