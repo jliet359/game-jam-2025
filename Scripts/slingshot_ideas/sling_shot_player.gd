@@ -6,6 +6,7 @@ var on_floor = false
 @onready var sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 var floor_ani = 0
 
+
 var enemy_character = null
 var player_character = null
 var has_teleported = false

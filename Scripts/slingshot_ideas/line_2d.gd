@@ -69,7 +69,7 @@ func _input(event: InputEvent) -> void:
 		
 		# Apply gravity to player when click is released
 		player.gravity_scale = 1.0
-		player.modulate.a = 1.0
+		player.sprite_2d.modulate.a = 1.0
 		slingshotonce += 1
 		
 	elif event is InputEventMouseMotion and is_dragging:
