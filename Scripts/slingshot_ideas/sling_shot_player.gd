@@ -85,25 +85,6 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	if on_floor == true :
 		
 		sprite_2d.play("floor")
-		queue_free()
-		floor_ani += 1
-		enemy_character.is_player = false
-		
-		# TELEPORT PLAYER TO THIS POSITION WHEN FLOOR IS DETECTED
-		if player_character != null and not has_teleported:
-			
-			#print("Teleporting player to slingshot position: ", global_position)
-			
-			# Different methods depending on your player type:
-			
-			if player_character.has_method("set_global_position"):
-				player_character.global_position = global_position
-			else:
-				player_character.position = global_position
-			has_teleported = true  # Prevent multiple teleports
-			player_character.animated_sprite_2d.modulate.a = 1.0
-			#print("Player teleported successfully!")
-		pass
 	
 func _input(event: InputEvent) -> void:
 	# Debug: Let's see what we can find
@@ -172,6 +153,10 @@ func _on_possess_area_body_entered(body: Node2D) -> void:
 		player_character.live.reset_health()
 		sprite_2d.modulate.a = 0.0
 		player_character.animated_sprite_2d.modulate.a = 0.0
+		# Disable collision
+		var col = player_character.get_node_or_null("CollisionShape2D")
+		if col: col.disabled = true
+		enemy_character.timer.stop()
 		enemy_character.after_possess()
 		
 		# Teleport player to the new enemy's position
@@ -182,9 +167,12 @@ func _on_possess_area_body_entered(body: Node2D) -> void:
 			if player_character.has_method("set_global_position"):
 				player_character.global_position = body.global_position
 				player_character.animated_sprite_2d.modulate.a = 0.0
+				player_character.animated_sprite_2d.visible = false
+				player_character.z_index = self.z_index - 1
 			else:
 				player_character.position = body.global_position
 				player_character.animated_sprite_2d.modulate.a = 0.0
+				player_character.animated_sprite_2d.visible = false
 			print("Player teleported to enemy successfully!")
 		
 		body.become_player()
@@ -192,4 +180,26 @@ func _on_possess_area_body_entered(body: Node2D) -> void:
 		player_character.timer.wait_time = 3.0
 		player_character.timer.start()
 		#print("PossessArea entered by: ", body.name)
+	pass # Replace with function body.
+
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	# TELEPORT PLAYER TO THIS POSITION WHEN FLOOR IS DETECTED
+	if player_character != null and not has_teleported:
+		#print("Teleporting player to slingshot position: ", global_position)
+		# Different methods depending on your player type:
+		if player_character.has_method("set_global_position"):
+			player_character.global_position = global_position
+			player_character.z_index = self.z_index - 1
+			
+		else:
+			player_character.position = global_position
+			player_character.z_index = self.z_index - 1
+		has_teleported = true  # Prevent multiple teleports
+		player_character.animated_sprite_2d.modulate.a = 1.0
+			#print("Player teleported successfully!")
+		pass
+	queue_free()
+	floor_ani += 1
+	enemy_character.is_player = false
 	pass # Replace with function body.

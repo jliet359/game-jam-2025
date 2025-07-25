@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://di8gyjw4u4q3d"]
 
-[ext_resource type="Script" path="res://Scripts/slingshot_ideas/sling_shot_player.gd" id="1_x4o2u"]
+[ext_resource type="Script" uid="uid://wl6g5y8vh8pv" path="res://Scripts/slingshot_ideas/sling_shot_player.gd" id="1_x4o2u"]
 [ext_resource type="Texture2D" uid="uid://dtb6yqj1tm083" path="res://Sprites/Grayson/blob_transisiton.png" id="2_f8ec5"]
 [ext_resource type="Texture2D" uid="uid://daesbq7nmewlq" path="res://Sprites/Grayson/onlyone_blob2.png" id="2_weupd"]
 
@@ -27,16 +27,16 @@ region = Rect2(33, 0, 33, 32)
 [sub_resource type="SpriteFrames" id="SpriteFrames_hwuoj"]
 animations = [{
 "frames": [{
-"duration": 1.0,
+"duration": 3.0,
 "texture": SubResource("AtlasTexture_dtgk5")
 }, {
-"duration": 1.0,
+"duration": 3.0,
 "texture": SubResource("AtlasTexture_xnaai")
 }, {
-"duration": 1.0,
+"duration": 3.0,
 "texture": SubResource("AtlasTexture_frrl6")
 }, {
-"duration": 1.0,
+"duration": 3.0,
 "texture": SubResource("AtlasTexture_yfqon")
 }],
 "loop": false,
@@ -77,4 +77,5 @@ shape = SubResource("RectangleShape2D_m4254")
 position = Vector2(0, -6.75)
 shape = SubResource("RectangleShape2D_v0061")
 
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="PossessArea" to="." method="_on_possess_area_body_entered"]

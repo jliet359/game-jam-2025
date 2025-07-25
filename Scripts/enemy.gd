@@ -4,6 +4,8 @@ var SPEED = 200.0
 const JUMP_VELOCITY = -400.0
 var is_player = false
 var can_be_possessed = true
+var timer_reset = 0
+
 
 @onready var enemy: AnimatedSprite2D = $AnimatedSprite2D
 @onready var timer: Timer = $Timer
@@ -24,6 +26,7 @@ func become_player():
 	#print("Found player:", player)
 	is_player = true
 	enemy.modulate = Color(0, 1, 0)
+	timer.one_shot = true
 	timer.wait_time = 4.0
 	timer.start()
 	can_be_possessed = false
@@ -35,19 +38,22 @@ func _on_timer_timeout() -> void:
 
 func after_possess():
 	enemy.play("dead")
+	print("enemy play deaddddd")
 	animation_player.play("die")
 	is_player = false
 	remove_child(collision)
-
-	# Use actual node path (adjust path as needed)
 	var player = get_node("../Player")  # or whatever the actual path is
 	if player:
+		print("player seen")
+		player.animated_sprite_2d.visible = true
 		player.animated_sprite_2d.modulate.a = 1.0
+		pass
 		#print("Player found and made visible!")
 	else:
 		pass
 		#print("Player not found at path!")
-		
+	pass # Replace with function body.
+	timer_reset += 1
 	timer_2.wait_time = 6.0
 	timer_2.start()
 
