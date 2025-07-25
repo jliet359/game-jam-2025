@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://bl8io7qmekim2"]
 
 [ext_resource type="Texture2D" uid="uid://daesbq7nmewlq" path="res://Sprites/Grayson/onlyone_blob2.png" id="1_abjst"]
-[ext_resource type="Script" path="res://Scenes/rigid_body_player.gd" id="1_yo3gp"]
+[ext_resource type="Script" path="res://Scripts/slingshot_ideas/rigid_body_player.gd" id="1_yo3gp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3smsa"]
 atlas = ExtResource("1_abjst")

@@ -2,8 +2,9 @@
 extends Line2D
 @onready var player = get_parent().get_node("SlingShotPlayer")
 var is_dragging = false
+var slingshotonce = 0
 
-
+@export var slingshot_strength: float = 3.0
 	
 func _input(event: InputEvent) -> void:
 	
@@ -33,6 +34,8 @@ func _input(event: InputEvent) -> void:
 			#print("Enemy is_player is false, blocking input")
 			return
 		#print("Enemy is_player is true, allowing input")
+	if slingshotonce >= 1:
+		return
 	# Handle click action press/release
 	if Input.is_action_just_pressed("click"):
 		is_dragging = true
@@ -44,9 +47,17 @@ func _input(event: InputEvent) -> void:
 		add_point(to_local(mouse_pos))   # Convert to local coordinates
 		
 	elif Input.is_action_just_released("click"):
+		slingshotonce = slingshotonce + 1
 		is_dragging = false
 		var direction = player.global_position - get_global_mouse_position()
-		player.dir = direction
+		
+		var powered_direction = direction * slingshot_strength
+		player.dir = powered_direction
+		
+		print("Direction: ", direction)
+		print("Powered direction: ", powered_direction)
+		print("Slingshot strength: ", slingshot_strength)
+		
 		
 		clear_points()
 		# Call the function to apply gravity once
@@ -58,6 +69,8 @@ func _input(event: InputEvent) -> void:
 		
 		# Apply gravity to player when click is released
 		player.gravity_scale = 1.0
+		player.modulate.a = 1.0
+		slingshotonce += 1
 		
 	elif event is InputEventMouseMotion and is_dragging:
 		var player_pos = player.global_position

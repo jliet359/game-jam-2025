@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://rougwfvelx3y" path="res://Scenes/enemy3.tscn" id="6_kowmk"]
 [ext_resource type="PackedScene" uid="uid://dmfaw7gt30gns" path="res://Scenes/enemy2.tscn" id="6_xqsho"]
 [ext_resource type="PackedScene" uid="uid://bglcd2ab12kn2" path="res://Scenes/door.tscn" id="8_cbuul"]
-[ext_resource type="Script" path="res://Scenes/firstdoor.gd" id="9_tk4ag"]
+[ext_resource type="Script" path="res://Scripts/firstdoor.gd" id="9_tk4ag"]
 [ext_resource type="Texture2D" uid="uid://brpqon8nb8xao" path="res://Sprites/Grayson/door.png" id="10_deg6i"]
 [ext_resource type="PackedScene" uid="uid://b00vx0vejpj5v" path="res://Scenes/slingshot_ideas/sling.tscn" id="11_ayfck"]
 

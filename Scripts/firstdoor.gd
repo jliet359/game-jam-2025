@@ -12,27 +12,29 @@ var animation_playing = false
 
 func _ready():
 	
-	print("Player node:", player)
-	print("Door sprite node:", door_sprite)
+	#print("Player node:", player)
+	#print("Door sprite node:", door_sprite)
 	
 	if door_sprite.sprite_frames:
-		print("Door animations:", door_sprite.sprite_frames.get_animation_names())
+		pass
+		#print("Door animations:", door_sprite.sprite_frames.get_animation_names())
 	else:
-		print("⚠️ Door sprite has NO SpriteFrames resource assigned!")
+		pass
+		#print("⚠️ Door sprite has NO SpriteFrames resource assigned!")
 
 func _on_body_entered(body):
 	if body == player:
 		player_inside = true
-		print("Player entered door area")
+		#print("Player entered door area")
 
 func _on_body_exited(body):
 	if body == player:
 		player_inside = false
-		print("Player exited door area")
+		#print("Player exited door area")
 
 func _process(_delta):
 	if player_inside and Input.is_action_just_pressed("interact") and not animation_playing:
-		print("Interact pressed – opening door")
+		#print("Interact pressed – opening door")
 		animation_playing = true
 		
 		if door_sprite.sprite_frames and door_sprite.sprite_frames.has_animation("open"):
@@ -43,31 +45,31 @@ func _process(_delta):
 			
 			# Check if we're still valid after the await
 			if not is_inside_tree():
-				print("⚠️ ERROR: Node is no longer in the scene tree after animation")
+				#print("⚠️ ERROR: Node is no longer in the scene tree after animation")
 				return
 			
-			print("Animation finished, changing scene to:", next_scene_path)
+			#print("Animation finished, changing scene to:", next_scene_path)
 			_change_scene()
 		else:
-			print("⚠️ Missing 'open' animation or sprite_frames on door_sprite")
+			#print("⚠️ Missing 'open' animation or sprite_frames on door_sprite")
 			# Change scene immediately if animation missing
 			_change_scene()
 
 func _change_scene():
 	# Check if the scene file exists
 	if not FileAccess.file_exists(next_scene_path):
-		print("⚠️ ERROR: Scene file does not exist at path:", next_scene_path)
+		#print("⚠️ ERROR: Scene file does not exist at path:", next_scene_path)
 		return
 	
-	print("Scene file exists, attempting to change scene...")
+	#print("Scene file exists, attempting to change scene...")
 	
 	# Check if we still have access to the scene tree
 	var tree = get_tree()
 	if not tree:
-		print("⚠️ ERROR: Cannot access scene tree - node may have been freed")
+		#print("⚠️ ERROR: Cannot access scene tree - node may have been freed")
 		return
 	
-	print("Scene tree is valid, changing scene...")
+	#print("Scene tree is valid, changing scene...")
 	
 	# Use call_deferred to ensure we're not in the middle of processing
 	tree.call_deferred("change_scene_to_file", next_scene_path)

@@ -24,7 +24,7 @@ func become_player():
 	#print("Found player:", player)
 	is_player = true
 	enemy.modulate = Color(0, 1, 0)
-	timer.wait_time = 10.0
+	timer.wait_time = 4.0
 	timer.start()
 	can_be_possessed = false
 
@@ -35,6 +35,7 @@ func _on_timer_timeout() -> void:
 
 func after_possess():
 	enemy.play("dead")
+	animation_player.play("die")
 	is_player = false
 	remove_child(collision)
 

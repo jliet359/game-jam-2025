@@ -2,6 +2,7 @@ extends Line2D
 @onready var player = get_parent().get_node("SlingShotPlayer")
 var is_dragging = false
 var trajectory_length = 200.0  # How far to show the trajectory
+var slingshotonce = 0
 
 func _input(event: InputEvent) -> void:
 	# Debug: Let's see what we can find
@@ -30,6 +31,8 @@ func _input(event: InputEvent) -> void:
 			#print("Enemy is_player is false, blocking input")
 			return
 		#print("Enemy is_player is true, allowing input")
+	if slingshotonce >= 1:
+		return
 	# Handle click action press/release
 	if Input.is_action_just_pressed("click"):
 		is_dragging = true
@@ -37,6 +40,7 @@ func _input(event: InputEvent) -> void:
 	elif Input.is_action_just_released("click"):
 		is_dragging = false
 		clear_points()
+		slingshotonce += 1
 	elif event is InputEventMouseMotion and is_dragging:
 		update_direction_line()
 
