@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://di8gyjw4u4q3d"]
 
-[ext_resource type="Script" uid="uid://wl6g5y8vh8pv" path="res://Scripts/slingshot_ideas/sling_shot_player.gd" id="1_x4o2u"]
+[ext_resource type="Script" path="res://Scripts/slingshot_ideas/sling_shot_player.gd" id="1_x4o2u"]
 [ext_resource type="Texture2D" uid="uid://dtb6yqj1tm083" path="res://Sprites/Grayson/blob_transisiton.png" id="2_f8ec5"]
 [ext_resource type="Texture2D" uid="uid://daesbq7nmewlq" path="res://Sprites/Grayson/onlyone_blob2.png" id="2_weupd"]
 
