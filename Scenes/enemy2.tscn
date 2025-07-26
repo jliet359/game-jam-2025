@@ -105,12 +105,12 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e3p6n"]
-radius = 19.0
-height = 212.0
+radius = 15.0
+height = 172.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_slr1v"]
 radius = 18.0
-height = 218.0
+height = 220.0
 
 [sub_resource type="Animation" id="Animation_16spx"]
 length = 0.001
@@ -150,6 +150,7 @@ _data = {
 }
 
 [node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
+top_level = true
 collision_layer = 3
 script = ExtResource("1_2deo1")
 
@@ -161,13 +162,13 @@ sprite_frames = SubResource("SpriteFrames_mjn3n")
 animation = &"dead"
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(0, -108)
+position = Vector2(0, -86)
 shape = SubResource("CapsuleShape2D_e3p6n")
 
 [node name="Area2D" type="Area2D" parent="." groups=["enemies"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -108)
+position = Vector2(0, -109)
 shape = SubResource("CapsuleShape2D_slr1v")
 
 [node name="Timer" type="Timer" parent="." groups=["enemies"]]

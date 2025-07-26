@@ -86,7 +86,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		
 		sprite_2d.play("floor")
 	
-func _input(event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
 	# Debug: Let's see what we can find
 	#print("Searching for Enemy node...")
 	
@@ -147,40 +147,44 @@ func enable_gravity():
 	#print("Project gravity: ", ProjectSettings.get_setting("physics/2d/default_gravity"))
 	#print("Project gravity vector: ", ProjectSettings.get_setting("physics/2d/default_gravity_vector"))
 func _on_possess_area_body_entered(body: Node2D) -> void:
+	
 	if not on_floor and body.is_in_group("enemies") and body.has_method("become_player") and body.can_be_possessed:
-		print("infected from slingshot")
+		print("[_on_possess_area_body_entered] Hit body: ", body.name)
+		#print("infected from slingshot")
+		#print("[Possession Triggered] Possessing enemy: ", body.name)
+
+		#print("[Possession] Killing old enemy: ", enemy_character.name)
 		queue_free()
 		player_character.live.reset_health()
 		sprite_2d.modulate.a = 0.0
 		player_character.animated_sprite_2d.modulate.a = 0.0
-		# Disable collision
-		var col = player_character.get_node_or_null("CollisionShape2D")
-		if col: col.disabled = true
+		player_character.animated_sprite_2d.z_index = 0
+		#enemy_character.animated_sprite_2d.z_index = 1
+
 		enemy_character.timer.stop()
+		enemy_character.timer_2.stop()
+		if enemy_character.timer.is_connected("timeout", Callable(enemy_character, "_on_timer_timeout")):
+			enemy_character.timer.disconnect("timeout", Callable(enemy_character, "_on_timer_timeout"))
 		enemy_character.after_possess()
-		
 		# Teleport player to the new enemy's position
 		if player_character != null:
-			print("Teleporting player to enemy position: ", body.global_position)
-			
+			#print("Teleporting player to enemy position: ", body.global_position)
 			# Teleport to enemy's center position
 			if player_character.has_method("set_global_position"):
 				player_character.global_position = body.global_position
-				player_character.animated_sprite_2d.modulate.a = 0.0
 				player_character.animated_sprite_2d.visible = false
-				player_character.z_index = self.z_index - 1
 			else:
 				player_character.position = body.global_position
-				player_character.animated_sprite_2d.modulate.a = 0.0
 				player_character.animated_sprite_2d.visible = false
-			print("Player teleported to enemy successfully!")
-		
+			#print("Player teleported to enemy successfully!")
+
+		#print("[Possession] Setting new enemy_character to: ", body.name)
+		enemy_character = body
 		body.become_player()
-		player_character.animated_sprite_2d.modulate.a = 0.0
 		player_character.timer.wait_time = 3.0
 		player_character.timer.start()
 		#print("PossessArea entered by: ", body.name)
-	pass # Replace with function body.
+		pass # Replace with function body.
 
 
 func _on_animated_sprite_2d_animation_finished() -> void:
@@ -190,11 +194,11 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 		# Different methods depending on your player type:
 		if player_character.has_method("set_global_position"):
 			player_character.global_position = global_position
-			player_character.z_index = self.z_index - 1
+			#player_character.z_index = self.z_index - 1
 			
 		else:
 			player_character.position = global_position
-			player_character.z_index = self.z_index - 1
+			#player_character.z_index = self.z_index - 1
 		has_teleported = true  # Prevent multiple teleports
 		player_character.animated_sprite_2d.modulate.a = 1.0
 			#print("Player teleported successfully!")

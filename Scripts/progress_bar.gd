@@ -11,7 +11,7 @@ var tick_rate: float = .05
 
 
 func _ready():
-	print("Total duration set to: ", total_duration)
+	#print("Total duration set to: ", total_duration)
 	init_health(health)
 	
 	live_timer.wait_time = tick_rate  # e.g., 0.1 seconds

@@ -24,5 +24,7 @@ script = ExtResource("3_8avss")
 script = ExtResource("4_3uqkk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HeadArea"]
-position = Vector2(601, 298)
+position = Vector2(601, 297)
 shape = SubResource("CircleShape2D_um8tx")
+
+[connection signal="body_entered" from="SlingShotPlayer" to="SlingShotPlayer" method="_on_body_entered"]

@@ -141,7 +141,7 @@ collision_layer = 3
 script = ExtResource("1_cvnsp")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(-5, -14)
+position = Vector2(17, -203)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -163,15 +163,15 @@ shape = SubResource("RectangleShape2D_cvnsp")
 
 [node name="Live" type="ProgressBar" parent="."]
 z_index = 1
-offset_left = -580.0
-offset_top = 240.0
-offset_right = 572.0
-offset_bottom = 306.0
+offset_left = -561.0
+offset_top = -526.0
+offset_right = 591.0
+offset_bottom = -460.0
 theme_override_styles/background = SubResource("StyleBoxEmpty_vgqql")
 theme_override_styles/fill = SubResource("StyleBoxFlat_fkybt")
 show_percentage = false
 script = ExtResource("3_6t5aa")
-total_duration = 8.0
+total_duration = 10.0
 
 [node name="LiveTimer" type="Timer" parent="Live"]
 

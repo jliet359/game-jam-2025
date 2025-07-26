@@ -180,7 +180,7 @@ tile_map_data = PackedByteArray("AAABAB4AAAAGAAEAAAACAB4AAAAGAAEAAAADAB4AAAAGAAE
 tile_set = SubResource("TileSet_o72e6")
 
 [node name="Player" parent="." instance=ExtResource("3_y8gqb")]
-position = Vector2(273, 447)
+position = Vector2(1070, 422)
 
 [node name="Enemy" parent="." instance=ExtResource("3_n02qu")]
 position = Vector2(1299, 447)
@@ -188,15 +188,21 @@ position = Vector2(1299, 447)
 [node name="Sling" parent="Enemy" instance=ExtResource("11_ayfck")]
 position = Vector2(-593, -491)
 
+[node name="Enemy2" parent="." instance=ExtResource("6_xqsho")]
+position = Vector2(2092, 451)
+
+[node name="Sling" parent="Enemy2" instance=ExtResource("11_ayfck")]
+position = Vector2(-593, -491)
+
+[node name="Enemy3" parent="." instance=ExtResource("6_kowmk")]
+position = Vector2(2788, 448)
+
+[node name="Sling" parent="Enemy3" instance=ExtResource("11_ayfck")]
+position = Vector2(-593, -491)
+
 [node name="Area2D" parent="." instance=ExtResource("4_g74hv")]
 position = Vector2(4526, 447)
 scale = Vector2(2.50333, 2.59557)
-
-[node name="Enemy2" parent="." instance=ExtResource("6_xqsho")]
-position = Vector2(2095, 447)
-
-[node name="Enemy3" parent="." instance=ExtResource("6_kowmk")]
-position = Vector2(3038, 447)
 
 [node name="Door" parent="." instance=ExtResource("8_cbuul")]
 show_behind_parent = true

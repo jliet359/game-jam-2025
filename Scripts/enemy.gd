@@ -5,7 +5,7 @@ const JUMP_VELOCITY = -400.0
 var is_player = false
 var can_be_possessed = true
 var timer_reset = 0
-
+var has_died: bool = false
 
 @onready var enemy: AnimatedSprite2D = $AnimatedSprite2D
 @onready var timer: Timer = $Timer
@@ -13,6 +13,7 @@ var timer_reset = 0
 @onready var collision: CollisionShape2D = $CollisionShape2D2
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var timer_2: Timer = $Timer2
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 
 
@@ -23,59 +24,74 @@ func _ready():
 	
 func become_player():
 	var player = get_tree().get_first_node_in_group("player")
-	#print("Found player:", player)
+	#print("[become_player] Called on enemy: ", name)
 	is_player = true
 	enemy.modulate = Color(0, 1, 0)
 	timer.one_shot = true
-	timer.wait_time = 4.0
+	timer.wait_time = 6.0
 	timer.start()
+	#print("[become_player] Timer started for enemy: ", name)
 	can_be_possessed = false
-
-	#print("Enemy has become player!")
+	
 	
 func _on_timer_timeout() -> void:
+	#print("[_on_timer_timeout] Fired on enemy: ", name)
 	after_possess()
 
+
 func after_possess():
+	
+	if has_died:
+		#print("[after_possess] Already died. Skipping.")
+		return
+		
+		
+	#print("[after_possess] Running on enemy: ", name)
+	has_died = true 
+	
+	if timer: timer.stop()
+	if timer_2: timer_2.stop()
+
+	
 	enemy.play("dead")
-	print("enemy play deaddddd")
 	animation_player.play("die")
 	is_player = false
 	remove_child(collision)
-	var player = get_node("../Player")  # or whatever the actual path is
+	var player = get_node("../Player")
 	if player:
-		print("player seen")
+		#print("[after_possess] Player seen from enemy: ", name)
 		player.animated_sprite_2d.visible = true
 		player.animated_sprite_2d.modulate.a = 1.0
-		pass
-		#print("Player found and made visible!")
-	else:
-		pass
-		#print("Player not found at path!")
-	pass # Replace with function body.
 	timer_reset += 1
 	timer_2.wait_time = 6.0
 	timer_2.start()
 
 func _on_timer_2_timeout() -> void:
+	timer_2.stop()  # ✅ prevent further firings
+	
+	if has_died:
+		#print("[_on_timer_2_timeout] Already processed, skipping.")
+		return
+		
 	var sling = get_node_or_null("Sling")
 	if sling:
-		print("Found Sling, about to move it")
+		#print("Found Sling, about to move it")
 		var scene_root = get_parent()
-		print("Scene root: ", scene_root.name)
+		#print("Scene root: ", scene_root.name)
 		
 		remove_child(sling)
-		print("Removed Sling from Enemy")
+		#print("Removed Sling from Enemy")
 		
 		scene_root.add_child(sling)
-		print("Added Sling to ", scene_root.name)
-		print("Moved Sling to safety")
+		#print("Added Sling to ", scene_root.name)
+		#print("Moved Sling to safety")
 	else:
-		print("Sling not found!")
+		#print("Sling not found!")
+		pass
 	
 	animation_player.play("die")
 	await animation_player.animation_finished
-	print("About to free Enemy")
+	#print("About to free Enemy")
 	queue_free()
 
 

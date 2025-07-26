@@ -104,11 +104,13 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_1dp5w"]
-radius = 15.0333
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fto0d"]
+radius = 12.0
+height = 170.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_1f0kj"]
-radius = 25.0799
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8ss4k"]
+radius = 16.0
+height = 208.0
 
 [sub_resource type="Animation" id="Animation_d1wpi"]
 length = 0.001
@@ -148,7 +150,6 @@ _data = {
 }
 
 [node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
-modulate = Color(0.43, 0.15, 0.05, 1)
 collision_layer = 3
 script = ExtResource("1_h3mdt")
 
@@ -161,14 +162,14 @@ animation = &"jump"
 frame_progress = 0.975639
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(0, -16)
-shape = SubResource("CircleShape2D_1dp5w")
+position = Vector2(0, -84)
+shape = SubResource("CapsuleShape2D_fto0d")
 
 [node name="Area2D" type="Area2D" parent="." groups=["enemies"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -24)
-shape = SubResource("CircleShape2D_1f0kj")
+position = Vector2(0, -101)
+shape = SubResource("CapsuleShape2D_8ss4k")
 
 [node name="Timer" type="Timer" parent="." groups=["enemies"]]
 wait_time = 10.0
