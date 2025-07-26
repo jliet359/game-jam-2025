@@ -1,8 +1,8 @@
 [gd_scene load_steps=18 format=3 uid="uid://buo8okfhienth"]
 
-[ext_resource type="Script" path="res://Scripts/player.gd" id="1_cvnsp"]
+[ext_resource type="Script" uid="uid://d2711a56r7i7i" path="res://Scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://daesbq7nmewlq" path="res://Sprites/Grayson/onlyone_blob2.png" id="2_cvnsp"]
-[ext_resource type="Script" path="res://Scripts/progress_bar.gd" id="3_6t5aa"]
+[ext_resource type="Script" uid="uid://bpmaldb0hs3er" path="res://Scripts/progress_bar.gd" id="3_6t5aa"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3smsa"]
 atlas = ExtResource("2_cvnsp")
@@ -132,8 +132,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fkybt"]
 _data = {
-"RESET": SubResource("Animation_vgqql"),
-"die": SubResource("Animation_6t5aa")
+&"RESET": SubResource("Animation_vgqql"),
+&"die": SubResource("Animation_6t5aa")
 }
 
 [node name="Player" type="CharacterBody2D"]
@@ -142,7 +142,7 @@ script = ExtResource("1_cvnsp")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(17, -203)
-zoom = Vector2(2, 2)
+zoom = Vector2(1.5, 1.5)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -167,7 +167,7 @@ z_index = 1
 offset_left = -561.0
 offset_top = -526.0
 offset_right = 591.0
-offset_bottom = -460.0
+offset_bottom = -486.0
 theme_override_styles/background = SubResource("StyleBoxEmpty_vgqql")
 theme_override_styles/fill = SubResource("StyleBoxFlat_fkybt")
 show_percentage = false
@@ -180,12 +180,12 @@ total_duration = 20.0
 show_behind_parent = true
 layout_mode = 0
 offset_right = 1152.0
-offset_bottom = 66.0
+offset_bottom = 40.0
 color = Color(1, 0, 0, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_fkybt")
+&"": SubResource("AnimationLibrary_fkybt")
 }
 
 [connection signal="body_entered" from="PossessArea" to="." method="_on_area_2d_body_entered"]

@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://b00vx0vejpj5v"]
 
 [ext_resource type="PackedScene" uid="uid://pqgd7x0a2ov6" path="res://Scenes/slingshot_ideas/line2denemysling.tscn" id="1_ct2t0"]
-[ext_resource type="Script" path="res://Scripts/slingshot_ideas/sling.gd" id="1_xtuka"]
+[ext_resource type="Script" uid="uid://bgv3u5lubnlyg" path="res://Scripts/slingshot_ideas/sling.gd" id="1_xtuka"]
 [ext_resource type="PackedScene" uid="uid://di8gyjw4u4q3d" path="res://Scenes/slingshot_ideas/rigidbodyplayer.tscn" id="2_ed4vp"]
-[ext_resource type="Script" path="res://Scripts/slingshot_ideas/direction_line.gd" id="3_8avss"]
-[ext_resource type="Script" path="res://Scripts/headarea.gd" id="4_3uqkk"]
+[ext_resource type="Script" uid="uid://cxhs0agbb851k" path="res://Scripts/slingshot_ideas/direction_line.gd" id="3_8avss"]
+[ext_resource type="Script" uid="uid://x7jm2y1rwe47" path="res://Scripts/headarea.gd" id="4_3uqkk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_um8tx"]
 radius = 27.1662

@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bglcd2ab12kn2"]
 
-[ext_resource type="Script" path="res://Scripts/firstdoor.gd" id="1_xrm1x"]
+[ext_resource type="Script" uid="uid://btf25b577lkud" path="res://Scripts/firstdoor.gd" id="1_xrm1x"]
 [ext_resource type="Texture2D" uid="uid://brpqon8nb8xao" path="res://Sprites/Grayson/door.png" id="2_tgach"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5bur2"]

@@ -1,6 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://c05wpbsr4v3d6"]
 
-[ext_resource type="Script" uid="uid://dk0maprss1sc1" path="res://purperpowerup.gd" id="1_1juyo"]
+[sub_resource type="Resource" id="Resource_omrlf"]
+metadata/__load_path__ = "res://purperpowerup.gd"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4pbhh"]
 region = Rect2(0, 24, 24, 24)
@@ -38,7 +39,7 @@ animations = [{
 radius = 5.0
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
-script = ExtResource("1_1juyo")
+script = SubResource("Resource_omrlf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
