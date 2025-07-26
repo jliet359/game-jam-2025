@@ -142,6 +142,7 @@ script = ExtResource("1_cvnsp")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(17, -203)
+zoom = Vector2(2, 2)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -171,7 +172,7 @@ theme_override_styles/background = SubResource("StyleBoxEmpty_vgqql")
 theme_override_styles/fill = SubResource("StyleBoxFlat_fkybt")
 show_percentage = false
 script = ExtResource("3_6t5aa")
-total_duration = 10.0
+total_duration = 20.0
 
 [node name="LiveTimer" type="Timer" parent="Live"]
 
