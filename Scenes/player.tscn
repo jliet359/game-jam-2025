@@ -172,7 +172,7 @@ theme_override_styles/background = SubResource("StyleBoxEmpty_vgqql")
 theme_override_styles/fill = SubResource("StyleBoxFlat_fkybt")
 show_percentage = false
 script = ExtResource("3_6t5aa")
-total_duration = 20.0
+total_duration = 10.0
 
 [node name="LiveTimer" type="Timer" parent="Live"]
 
