@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://dqbv3j5g1xi16"]
+
+[ext_resource type="Script" uid="uid://btf25b577lkud" path="res://Scripts/firstdoor.gd" id="1_i6uow"]
+[ext_resource type="Texture2D" uid="uid://cpo2u04oe14io" path="res://Sprites/Grayson/newdoor3.png" id="2_qxol4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yt2yh"]
+atlas = ExtResource("2_qxol4")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_10kbq"]
+atlas = ExtResource("2_qxol4")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w81rd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yt2yh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_10kbq")
+}],
+"loop": false,
+"name": &"open",
+"speed": 1.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i6uow"]
+size = Vector2(8, 61)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o7m8n"]
+size = Vector2(11, 63)
+
+[node name="BlackDoor" type="Area2D"]
+script = ExtResource("1_i6uow")
+door_sprite_path = NodePath("AnimatedSprite2D")
+required_velocity_threshold = -10.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_w81rd")
+animation = &"open"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-9, -0.5)
+shape = SubResource("RectangleShape2D_i6uow")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-9.5, -0.5)
+shape = SubResource("RectangleShape2D_o7m8n")

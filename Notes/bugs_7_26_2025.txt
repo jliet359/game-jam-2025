@@ -1,0 +1,11 @@
+Bugs
+-can infect another enemy by running into them infected
+-player spawns underneath enemy when enemy hit after slingshot
+-enemy cant be hit in head because it triggers passive sling
+-after first enemy sling the other ones done die right as slingshot is used 
+-if slingshotplayer hits ground it moves with enemy it shot from (enemy needs to die)
+-player needs to teleport right away to slingshotplayer on the ground
+-camera needs to follow slingshotplayer when shot instead of stay on player in infected enemy 
+-player and on the ground slingshotplayer cannt exist at the same time
+-player pops out of third or more infected enemy after 2nd on dies, needs to stay invisible until death or teleported to slingshotplayer
+-player jump animation repeats 

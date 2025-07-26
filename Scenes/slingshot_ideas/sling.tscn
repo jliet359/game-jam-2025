@@ -15,6 +15,9 @@ script = ExtResource("1_xtuka")
 [node name="SlingShotPlayer" parent="." instance=ExtResource("2_ed4vp")]
 position = Vector2(601, 303)
 
+[node name="Camera2D" type="Camera2D" parent="SlingShotPlayer"]
+position = Vector2(0, -392)
+
 [node name="SlingShotLine" parent="." instance=ExtResource("1_ct2t0")]
 
 [node name="DirectionLine" type="Line2D" parent="."]

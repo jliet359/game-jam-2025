@@ -85,7 +85,8 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	if on_floor == true :
 		
 		sprite_2d.play("floor")
-	
+
+		
 func _input(_event: InputEvent) -> void:
 	# Debug: Let's see what we can find
 	#print("Searching for Enemy node...")
@@ -154,7 +155,7 @@ func _on_possess_area_body_entered(body: Node2D) -> void:
 		#print("[Possession Triggered] Possessing enemy: ", body.name)
 
 		#print("[Possession] Killing old enemy: ", enemy_character.name)
-		queue_free()
+
 		player_character.live.reset_health()
 		sprite_2d.modulate.a = 0.0
 		player_character.animated_sprite_2d.modulate.a = 0.0
@@ -180,6 +181,7 @@ func _on_possess_area_body_entered(body: Node2D) -> void:
 
 		#print("[Possession] Setting new enemy_character to: ", body.name)
 		enemy_character = body
+		print("[Possession] enemy_character assigned to: ", enemy_character.name)
 		body.become_player()
 		player_character.timer.wait_time = 3.0
 		player_character.timer.start()
@@ -189,21 +191,38 @@ func _on_possess_area_body_entered(body: Node2D) -> void:
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	# TELEPORT PLAYER TO THIS POSITION WHEN FLOOR IS DETECTED
+	print("[Animation Finished] Starting player teleport logic...")
+
 	if player_character != null and not has_teleported:
-		#print("Teleporting player to slingshot position: ", global_position)
-		# Different methods depending on your player type:
+		print("[Animation Finished] Teleporting player to: ", global_position)
+		
 		if player_character.has_method("set_global_position"):
 			player_character.global_position = global_position
-			#player_character.z_index = self.z_index - 1
-			
 		else:
 			player_character.position = global_position
-			#player_character.z_index = self.z_index - 1
-		has_teleported = true  # Prevent multiple teleports
+
 		player_character.animated_sprite_2d.modulate.a = 1.0
-			#print("Player teleported successfully!")
-		pass
+		has_teleported = true
+		print("[Animation Finished] Player teleported successfully.")
+
+	else:
+		if player_character == null:
+			print("[Animation Finished] Player character is null.")
+		if has_teleported:
+			print("[Animation Finished] Player already teleported.")
+
 	queue_free()
 	floor_ani += 1
-	enemy_character.is_player = false
-	pass # Replace with function body.
+
+	if enemy_character == null:
+		print("[Animation Finished] WARNING: enemy_character is null, cannot modify is_player!")
+	else:
+		enemy_character.is_player = false
+		print("[Animation Finished] enemy_character.is_player set to false")
+
+	# Re-enable camera
+	if player_character and player_character.has_node("Camera2D"):
+		player_character.get_node("Camera2D").enabled = true
+		print("[Animation Finished] Player camera enabled")
+	else:
+		print("[Animation Finished] No Camera2D node found on player")

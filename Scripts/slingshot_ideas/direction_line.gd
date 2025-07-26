@@ -30,36 +30,40 @@ var arrow_head_sprite: Sprite2D
 func _ready():
 	# Get actual gravity from project settings to match real physics
 	gravity_strength = ProjectSettings.get_setting("physics/2d/default_gravity", 980.0)
-	print("Using gravity: ", gravity_strength)
+	#print("Using gravity: ", gravity_strength)
 	
 	ensure_textures_loaded()
 	
 	if trajectory_dot_texture != null:
 		create_dot_sprites()
 	else:
-		print("No dot texture available - trajectory dots will not be shown")
+		#print("No dot texture available - trajectory dots will not be shown")
+		pass
 		
 	if arrow_head_texture != null:
 		create_arrow_head_sprite()
 	else:
-		print("No arrow head texture available - arrow head will not be shown")
+		#print("No arrow head texture available - arrow head will not be shown")
+		pass
 
 func ensure_textures_loaded():
 	if trajectory_dot_texture == null:
 		var dot_path = "res://Sprites/Grayson/trajectory_dot.png"
 		if ResourceLoader.exists(dot_path):
 			trajectory_dot_texture = load(dot_path)
-			print("Loaded trajectory dot texture from file")
+			#print("Loaded trajectory dot texture from file")
 		else:
-			print("Trajectory dot texture not found at: ", dot_path)
+			#print("Trajectory dot texture not found at: ", dot_path)
+			pass
 
 	if arrow_head_texture == null:
 		var arrow_path = "res://Sprites/Grayson/arrow_head.png"
 		if ResourceLoader.exists(arrow_path):
 			arrow_head_texture = load(arrow_path)
-			print("Loaded arrow head texture from file")
+			#print("Loaded arrow head texture from file")
 		else:
-			print("Arrow head texture not found at: ", arrow_path)
+			#print("Arrow head texture not found at: ", arrow_path)
+			pass
 
 func create_dot_sprites():
 	for i in range(trajectory_points):
@@ -70,14 +74,14 @@ func create_dot_sprites():
 		dot.modulate.a = 0.7
 		add_child(dot)
 		dot_sprites.append(dot)
-	print("Created ", dot_sprites.size(), " dot sprites")
+	#print("Created ", dot_sprites.size(), " dot sprites")
 
 func create_arrow_head_sprite():
 	arrow_head_sprite = Sprite2D.new()
 	arrow_head_sprite.texture = arrow_head_texture
 	arrow_head_sprite.visible = false
 	add_child(arrow_head_sprite)
-	print("Created arrow head sprite")
+	#print("Created arrow head sprite")
 
 func can_use_trajectory() -> bool:
 	if enemy == null:
@@ -100,13 +104,13 @@ func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("click"):
 		is_dragging = true
 		update_trajectory()
-		print("Started dragging")
+		#print("Started dragging")
 		
 	elif Input.is_action_just_released("click"):
 		is_dragging = false
 		hide_trajectory()
 		slingshotonce += 1
-		print("Released - trajectory hidden")
+		#print("Released - trajectory hidden")
 		
 	elif event is InputEventMouseMotion and is_dragging:
 		update_trajectory()
@@ -114,7 +118,7 @@ func _input(event: InputEvent) -> void:
 # === FIXED TRAJECTORY CALCULATION ===
 func update_trajectory():
 	if dot_sprites.is_empty():
-		print("No dot sprites available for trajectory")
+		#print("No dot sprites available for trajectory")
 		return
 	
 	var player_pos = player.global_position
@@ -128,7 +132,7 @@ func update_trajectory():
 	var initial_velocity = powered_direction
 	
 	var pull_distance = direction.length()
-	print("Pull distance: ", pull_distance, " Initial velocity: ", initial_velocity)
+	#print("Pull distance: ", pull_distance, " Initial velocity: ", initial_velocity)
 	
 	# Calculate dots to show based on pull strength
 	var min_dots = 8
@@ -154,7 +158,8 @@ func update_trajectory():
 		points_used = i + 1
 		
 		if i < 3:
-			print("Point ", i, " at time ", t, ": ", trajectory_point)
+			#print("Point ", i, " at time ", t, ": ", trajectory_point)
+			pass
 	
 	# Hide unused dots
 	for i in range(points_used, dot_sprites.size()):
@@ -193,11 +198,12 @@ func animate_trajectory_in():
 # === ADDITIONAL DEBUGGING FUNCTION ===
 # Call this to print physics comparison values
 func debug_physics_values():
-	print("=== PHYSICS DEBUG ===")
-	print("Project gravity: ", ProjectSettings.get_setting("physics/2d/default_gravity"))
-	print("Trajectory gravity: ", gravity_strength)
-	print("Time step: ", time_step)
-	print("Slingshot strength: ", slingshot_strength)
+	#print("=== PHYSICS DEBUG ===")
+	#print("Project gravity: ", ProjectSettings.get_setting("physics/2d/default_gravity"))
+	#print("Trajectory gravity: ", gravity_strength)
+	#print("Time step: ", time_step)
+	#print("Slingshot strength: ", slingshot_strength)
 	if player:
-		print("Player gravity scale: ", player.gravity_scale)
-		print("Player linear velocity: ", player.linear_velocity)
+		#print("Player gravity scale: ", player.gravity_scale)
+		#print("Player linear velocity: ", player.linear_velocity)
+		pass

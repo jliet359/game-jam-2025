@@ -28,7 +28,8 @@ func _ready():
 	if pullback_dot_texture != null:
 		create_dot_sprites()
 	else:
-		print("No pullback dot texture available - pullback line will not be shown")
+		#print("No pullback dot texture available - pullback line will not be shown")
+		pass
 
 # === TEXTURE LOADING ===
 func ensure_texture_loaded():
@@ -37,15 +38,16 @@ func ensure_texture_loaded():
 		var dot_path = "res://Sprites/Grayson/pullback_dot.png"  # You can reuse trajectory_dot.png
 		if ResourceLoader.exists(dot_path):
 			pullback_dot_texture = load(dot_path)
-			print("Loaded pullback dot texture from file")
+			#print("Loaded pullback dot texture from file")
 		else:
 			# Try to use trajectory dot as fallback
 			var fallback_path = "res://Sprites/Grayson/trajectory_dot.png"
 			if ResourceLoader.exists(fallback_path):
 				pullback_dot_texture = load(fallback_path)
-				print("Using trajectory dot texture for pullback line")
+				#print("Using trajectory dot texture for pullback line")
 			else:
-				print("Pullback dot texture not found. Please add pullback_dot.png or trajectory_dot.png to res://Sprites/Grayson/")
+				#print("Pullback dot texture not found. Please add pullback_dot.png or trajectory_dot.png to res://Sprites/Grayson/")
+				pass
 
 # === SPRITE CREATION ===
 func create_dot_sprites():
@@ -58,13 +60,13 @@ func create_dot_sprites():
 		dot.modulate = Color.WHITE  # Full opacity, white color
 		add_child(dot)
 		dot_sprites.append(dot)
-	print("Created ", dot_sprites.size(), " pullback dot sprites")
+	#print("Created ", dot_sprites.size(), " pullback dot sprites")
 
 # === PERMISSION CHECK ===
 func can_use_slingshot() -> bool:
 	# Check if enemy exists
 	if enemy == null:
-		print("Enemy is null!")
+		#print("Enemy is null!")
 		return false
 	
 	# Check if enemy has is_player and it's true
@@ -73,7 +75,7 @@ func can_use_slingshot() -> bool:
 	elif "is_player" in enemy:
 		return enemy.is_player
 	else:
-		print("Enemy missing is_player property/method!")
+		#print("Enemy missing is_player property/method!")
 		return false
 
 # === INPUT HANDLING ===
@@ -98,7 +100,15 @@ func _input(event: InputEvent) -> void:
 		
 		var powered_direction = direction * slingshot_strength
 		player.dir = powered_direction
+		# ✅ Disable the player's camera temporarily
 		
+		# ✅ Get the player node from the scene tree (by group or name)
+		var player_node = get_tree().current_scene.find_child("Player", true, false)
+
+		# ✅ Disable its camera if it exists
+		if player_node and player_node.has_node("Camera2D"):
+			player_node.get_node("Camera2D").enabled = false
+			
 		# Hide the pullback line
 		hide_pullback_line()
 		

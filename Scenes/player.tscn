@@ -141,8 +141,7 @@ collision_layer = 3
 script = ExtResource("1_cvnsp")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(17, -203)
-zoom = Vector2(1.5, 1.5)
+position = Vector2(-1, -391)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
