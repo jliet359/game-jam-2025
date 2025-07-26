@@ -1,0 +1,6 @@
+Bugs- 
+enemy doesnt die after click 
+player doesnt go invisible after posssesion through slingshot
+slingshot line stays on screen if enemy dies while trying to slingshot
+live bar needs moved off player and put on level scene 
+camera hierarchy (if enemies are not possessed in order than cameras wont work properly)

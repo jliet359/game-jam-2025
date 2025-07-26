@@ -1,29 +1,26 @@
-# TrajectoryLine.gd - FIXED VERSION
-# This script creates a visual trajectory that accurately matches the actual physics
-
 extends Node2D
 
-# === NODE REFERENCES ===
+
 @onready var enemy = get_parent().get_parent()
 @onready var player = get_parent().get_node("SlingShotPlayer")
 
-# === EXPORTED VARIABLES ===
+
 @export var trajectory_dot_texture: Texture2D
 @export var arrow_head_texture: Texture2D
 @export var slingshot_strength: float = 3.0
 
-# === STATE VARIABLES ===
+
 var is_dragging = false
 var slingshotonce = 0
 var trajectory_length = 200.0
 
-# === PHYSICS VARIABLES - FIXED TO MATCH GODOT PHYSICS ===
+
 var gravity_strength: float  # Will be set from project settings
 var trajectory_points = 25
 var time_step = 0.016667  # 1/60th second (60 FPS) - matches Godot's default physics
 var physics_time_scale = 60.0  # Convert from per-second to per-frame
 
-# === SPRITE STORAGE ===
+
 var dot_sprites: Array[Sprite2D] = []
 var arrow_head_sprite: Sprite2D
 
@@ -115,7 +112,7 @@ func _input(event: InputEvent) -> void:
 	elif event is InputEventMouseMotion and is_dragging:
 		update_trajectory()
 
-# === FIXED TRAJECTORY CALCULATION ===
+
 func update_trajectory():
 	if dot_sprites.is_empty():
 		#print("No dot sprites available for trajectory")
@@ -195,7 +192,7 @@ func animate_trajectory_in():
 	set_trajectory_opacity(0.0)
 	tween.tween_method(set_trajectory_opacity, 0.0, 1.0, 0.2)
 
-# === ADDITIONAL DEBUGGING FUNCTION ===
+
 # Call this to print physics comparison values
 func debug_physics_values():
 	#print("=== PHYSICS DEBUG ===")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=21 format=3 uid="uid://dmfaw7gt30gns"]
 
-[ext_resource type="Script" uid="uid://b7jb2nnncd4ux" path="res://Scripts/enemy.gd" id="1_2deo1"]
+[ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_2deo1"]
 [ext_resource type="Texture2D" uid="uid://dpylioci7sx7o" path="res://Sprites/Grayson/man_2falling.png" id="2_hq7tf"]
 [ext_resource type="Texture2D" uid="uid://c6iwllh7x57va" path="res://Sprites/Grayson/man_2-Sheet.png" id="2_ry0sg"]
 
@@ -145,8 +145,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gwh8j"]
 _data = {
-&"RESET": SubResource("Animation_16spx"),
-&"die": SubResource("Animation_vbqeg")
+"RESET": SubResource("Animation_16spx"),
+"die": SubResource("Animation_vbqeg")
 }
 
 [node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
@@ -178,7 +178,7 @@ one_shot = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 reset_on_save = false
 libraries = {
-&"": SubResource("AnimationLibrary_gwh8j")
+"": SubResource("AnimationLibrary_gwh8j")
 }
 
 [node name="Timer2" type="Timer" parent="."]

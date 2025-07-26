@@ -1,5 +1,5 @@
-# SlingShotPlayer.gd
 extends RigidBody2D
+
 var dir: Vector2 = Vector2.ZERO
 var gravity_enabled: bool = false
 var on_floor = false
@@ -15,51 +15,49 @@ func _ready():
 	continuous_cd = RigidBody2D.CCD_MODE_CAST_RAY
 	sprite_2d.modulate.a = 0.0
 	#print("Player ready - Initial gravity_scale: ", gravity_scale)
-	gravity_scale = 0.0
-	#print("Player ready - Gravity set to: ", gravity_scale)
 	contact_monitor = true
 	max_contacts_reported = 10
 	#print("Contact monitoring enabled: ", contact_monitor)
 	#print("Max contacts: ", max_contacts_reported)
-	player_character = get_tree().current_scene.find_child("Player", true, false)
 	
-	# Method 2: Find by group (if your player is in a group called "player")
+	# Method 1
+	player_character = get_tree().current_scene.find_child("Player", true, false)
+	if player_character != null:
+		print("Found player using Method 1: find_child()") 
+		pass
+	else:
+		print("Method 1 failed")
+		pass
+	"""
+	# Method 2
 	if player_character == null:
 		var players = get_tree().get_nodes_in_group("player")
 		if not players.is_empty():
 			player_character = players[0]
+			print("Found player using Method 2: group 'player'")
+		else:
+			print("Method 2 failed")
+			pass
 	
-	# Method 3: Get from a specific path (adjust path as needed)
+	# Method 3
 	if player_character == null:
 		player_character = get_node_or_null("../Player")  # Adjust path as needed
+		if player_character:
+			print("Found player using Method 3: .../Player")
+			pass
+		else:
+			print("Method 3 failed")
+			pass
+	"""
 	
-	if player_character == null:
-		#print("Warning: Player character not found!")
-		pass
-	else:
-		#print("Player character found: ", player_character.name)
-		pass
-		
 	enemy_character = get_tree().current_scene.find_child("Enemy", true, false)
-	
-	# Method 2: Find by group (if your player is in a group called "player")
-	if enemy_character == null:
-		var enemies = get_tree().get_nodes_in_group("enemy")
-		if not enemies.is_empty():
-			enemy_character = enemies[0]
-	
-	# Method 3: Get from a specific path (adjust path as needed)
-	if enemy_character == null:
-		enemy_character = get_node_or_null("../Enemy")  # Adjust path as needed
-	
-	if enemy_character == null:
+	if enemy_character != null:
+		print("Found enemy using Method 1: find_child()") 
 		pass
-		#print("Warning: Enemy character not found!")
 	else:
+		print("Method 1 failed")
 		pass
-		#print("Enemy character found: ", enemy_character.name)
-		
-		
+
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	var floor_normal = Vector2.UP
 	
@@ -88,13 +86,8 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 
 		
 func _input(_event: InputEvent) -> void:
-	# Debug: Let's see what we can find
-	#print("Searching for Enemy node...")
-	
-	# Try finding Enemy by name anywhere in the scene
-	var enemy = get_tree().current_scene.find_child("Enemy", true, false)
-	
-	if enemy == null:
+
+	if enemy_character == null:
 		#print("Enemy node not found! Trying alternative methods...")
 		# Try groups approach instead
 		var enemies = get_tree().get_nodes_in_group("enemies")
@@ -107,10 +100,10 @@ func _input(_event: InputEvent) -> void:
 			return
 	else:
 		#print("Found enemy node: ", enemy.name)
-		if not enemy.has_method("is_player") and not "is_player" in enemy:
+		if not enemy_character.has_method("is_player") and not "is_player" in enemy_character:
 			#print("Enemy doesn't have is_player property!")
 			return
-		if not enemy.is_player:
+		if not enemy_character.is_player:
 			#print("Enemy is_player is false, blocking input")
 			return
 		#print("Enemy is_player is true, allowing input")
@@ -124,11 +117,12 @@ func _physics_process(_delta: float) -> void:
 		dir = lerp(dir, Vector2.ZERO, 0.03)
 	else:
 		# After gravity is enabled, only apply horizontal movement
-		# Let physics handle vertical movement (gravity)
+		"""
 		linear_velocity.x = dir.x
 		dir.x = lerp(dir.x, 0.0, 0.03)
-		# Don't touch linear_velocity.y - let gravity handle it
-
+		"""
+		pass
+		
 func enable_gravity():
 	#print("enable_gravity() function called!")
 	#print("Before: gravity_scale = ", gravity_scale)
@@ -147,54 +141,78 @@ func enable_gravity():
 	# Check project settings
 	#print("Project gravity: ", ProjectSettings.get_setting("physics/2d/default_gravity"))
 	#print("Project gravity vector: ", ProjectSettings.get_setting("physics/2d/default_gravity_vector"))
-func _on_possess_area_body_entered(body: Node2D) -> void:
 	
+func _on_possess_area_body_entered(body: Node2D) -> void:
 	if not on_floor and body.is_in_group("enemies") and body.has_method("become_player") and body.can_be_possessed:
-		print("[_on_possess_area_body_entered] Hit body: ", body.name)
+		# ✅ Disable its camera if it exists
+		if player_character and player_character.has_node("Camera2D"):
+			player_character.get_node("Camera2D").enabled = true
+			print("switching camera")
+		#print("[_on_possess_area_body_entered] Hit body: ", body.name)
 		#print("infected from slingshot")
 		#print("[Possession Triggered] Possessing enemy: ", body.name)
-
 		#print("[Possession] Killing old enemy: ", enemy_character.name)
-
 		player_character.live.reset_health()
+		
 		sprite_2d.modulate.a = 0.0
-		player_character.animated_sprite_2d.modulate.a = 0.0
-		player_character.animated_sprite_2d.z_index = 0
+		#player_character.animated_sprite_2d.modulate.a = 0.0
+		#player_character.animated_sprite_2d.z_index = 0
 		#enemy_character.animated_sprite_2d.z_index = 1
-
+		
+		enemy_character.after_possess()
 		enemy_character.timer.stop()
 		enemy_character.timer_2.stop()
 		if enemy_character.timer.is_connected("timeout", Callable(enemy_character, "_on_timer_timeout")):
 			enemy_character.timer.disconnect("timeout", Callable(enemy_character, "_on_timer_timeout"))
-		enemy_character.after_possess()
+		
 		# Teleport player to the new enemy's position
 		if player_character != null:
-			#print("Teleporting player to enemy position: ", body.global_position)
-			# Teleport to enemy's center position
-			if player_character.has_method("set_global_position"):
-				player_character.global_position = body.global_position
-				player_character.animated_sprite_2d.visible = false
+			#print("player_character is not null")
+			#print("Attempting to teleport to enemy position:", body.global_position)
+			# Check if body (enemy) is valid
+			if body != null:
+				#print("body (enemy) is valid")
+				# Attempt to set the global position
+				if player_character.has_method("set_global_position"):
+					#print("player_character has method 'set_global_position'
+					player_character.global_position = body.global_position
+					#print("player_character global_position set via set_global_position")
+				else:
+					#print("'set_global_position' not found. Using direct assignment")
+					player_character.global_position = body.global_position
+					#print("player_character global_position assigned directly")
+				# Attempt to hide the player's AnimatedSprite2D
+				if player_character.has_node("AnimatedSprite2D"):
+					#print("Found 'AnimatedSprite2D' in player_character")
+					var sprite = player_character.get_node("AnimatedSprite2D")
+					sprite.visible = false
+					#print("AnimatedSprite2D is now hidden")
+				else:
+					#print("AnimatedSprite2D node not found in player_character!")
+					pass
+				#print("Player teleported to enemy position successfully!")
 			else:
-				player_character.position = body.global_position
-				player_character.animated_sprite_2d.visible = false
-			#print("Player teleported to enemy successfully!")
-
+				#print("body (enemy) is null – cannot teleport!")
+				pass
+		else:
+			#print("player_character is null – cannot teleport!")\
+			pass
 		#print("[Possession] Setting new enemy_character to: ", body.name)
 		enemy_character = body
-		print("[Possession] enemy_character assigned to: ", enemy_character.name)
+		#print("[Possession] enemy_character assigned to: ", enemy_character.name)
 		body.become_player()
 		player_character.timer.wait_time = 3.0
 		player_character.timer.start()
 		#print("PossessArea entered by: ", body.name)
 		pass # Replace with function body.
-
-
+		queue_free()
+		
 func _on_animated_sprite_2d_animation_finished() -> void:
 	# TELEPORT PLAYER TO THIS POSITION WHEN FLOOR IS DETECTED
-	print("[Animation Finished] Starting player teleport logic...")
+	#print("[Animation Finished] Starting player teleport logic...")
 
 	if player_character != null and not has_teleported:
-		print("[Animation Finished] Teleporting player to: ", global_position)
+		#print("[Animation Finished] Teleporting player to: ", global_position)
 		
 		if player_character.has_method("set_global_position"):
 			player_character.global_position = global_position
@@ -203,26 +221,30 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 
 		player_character.animated_sprite_2d.modulate.a = 1.0
 		has_teleported = true
-		print("[Animation Finished] Player teleported successfully.")
+		#print("[Animation Finished] Player teleported successfully.")
 
 	else:
 		if player_character == null:
-			print("[Animation Finished] Player character is null.")
+			#print("[Animation Finished] Player character is null.")
+			pass
 		if has_teleported:
-			print("[Animation Finished] Player already teleported.")
+			#print("[Animation Finished] Player already teleported.")
+			pass
 
 	queue_free()
 	floor_ani += 1
 
 	if enemy_character == null:
-		print("[Animation Finished] WARNING: enemy_character is null, cannot modify is_player!")
+		#print("[Animation Finished] WARNING: enemy_character is null, cannot modify is_player!")
+		pass
 	else:
 		enemy_character.is_player = false
-		print("[Animation Finished] enemy_character.is_player set to false")
+		#print("[Animation Finished] enemy_character.is_player set to false")
 
 	# Re-enable camera
 	if player_character and player_character.has_node("Camera2D"):
 		player_character.get_node("Camera2D").enabled = true
-		print("[Animation Finished] Player camera enabled")
+		#print("[Animation Finished] Player camera enabled")
 	else:
-		print("[Animation Finished] No Camera2D node found on player")
+		#print("[Animation Finished] No Camera2D node found on player")
+		pass

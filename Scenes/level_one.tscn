@@ -42,16 +42,16 @@ tile_set = SubResource("TileSet_cscg7")
 [node name="Player" parent="." instance=ExtResource("3_fqecd")]
 position = Vector2(3492, 552)
 
-[node name="Enemy2" parent="." instance=ExtResource("2_g05yn")]
+[node name="Enemy" parent="." instance=ExtResource("2_g05yn")]
 position = Vector2(3666, 577)
 
-[node name="Sling" parent="Enemy2" instance=ExtResource("4_8wun6")]
+[node name="Sling" parent="Enemy" instance=ExtResource("4_8wun6")]
 position = Vector2(-594, -479)
 
-[node name="Enemy4" parent="." instance=ExtResource("2_g05yn")]
-position = Vector2(5608, 578)
+[node name="Enemy2" parent="." instance=ExtResource("2_g05yn")]
+position = Vector2(4219, 576)
 
-[node name="Sling" parent="Enemy4" instance=ExtResource("4_8wun6")]
+[node name="Sling" parent="Enemy2" instance=ExtResource("4_8wun6")]
 position = Vector2(-596, -483)
 
 [node name="Enemy3" parent="." instance=ExtResource("5_b7vm3")]

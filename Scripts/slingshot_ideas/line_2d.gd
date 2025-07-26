@@ -1,29 +1,25 @@
-# PullbackLine.gd
-# This script creates a visual pullback line using dots instead of a white line
-# It shows the connection between player and mouse cursor while aiming
+extends Node2D
 
-extends Node2D  # Changed from Line2D to Node2D since we're using sprites
 
-# === NODE REFERENCES ===
-@onready var enemy = get_parent().get_parent() # assuming this node is child of enemy node
+@onready var enemy = get_parent().get_parent()
 @onready var player = get_parent().get_node("SlingShotPlayer")
 
-# === EXPORTED VARIABLES ===
-@export var slingshot_strength: float = 3.0
-@export var pullback_dot_texture: Texture2D  # PNG image for pullback line dots
-@export var dot_spacing: float = 20.0        # Distance between dots in pixels
-@export var max_dots: int = 20               # Maximum number of dots to create
 
-# === STATE VARIABLES ===
+@export var slingshot_strength: float = 3.0
+@export var pullback_dot_texture: Texture2D  
+@export var dot_spacing: float = 20.0
+@export var max_dots: int = 20
+
+
 var is_dragging = false
 var slingshotonce = 0
 
-# === DOT MANAGEMENT ===
-var dot_sprites: Array[Sprite2D] = []  # Array to store all dot sprites
 
-# === INITIALIZATION ===
+var dot_sprites: Array[Sprite2D] = [] 
+
+
 func _ready():
-	# Load texture and create dot sprites
+
 	ensure_texture_loaded()
 	if pullback_dot_texture != null:
 		create_dot_sprites()
@@ -35,12 +31,11 @@ func _ready():
 func ensure_texture_loaded():
 	# Try to load pullback dot texture
 	if pullback_dot_texture == null:
-		var dot_path = "res://Sprites/Grayson/pullback_dot.png"  # You can reuse trajectory_dot.png
+		var dot_path = "res://Sprites/Grayson/pullback_dot.png"
 		if ResourceLoader.exists(dot_path):
 			pullback_dot_texture = load(dot_path)
 			#print("Loaded pullback dot texture from file")
 		else:
-			# Try to use trajectory dot as fallback
 			var fallback_path = "res://Sprites/Grayson/trajectory_dot.png"
 			if ResourceLoader.exists(fallback_path):
 				pullback_dot_texture = load(fallback_path)
@@ -49,22 +44,21 @@ func ensure_texture_loaded():
 				#print("Pullback dot texture not found. Please add pullback_dot.png or trajectory_dot.png to res://Sprites/Grayson/")
 				pass
 
-# === SPRITE CREATION ===
+
 func create_dot_sprites():
 	# Create dot sprites for the pullback line
 	for i in range(max_dots):
 		var dot = Sprite2D.new()
 		dot.texture = pullback_dot_texture
-		dot.visible = false  # Start hidden
+		dot.visible = false
 		dot.scale = Vector2(0.6, 0.6)  # Slightly larger than trajectory dots
 		dot.modulate = Color.WHITE  # Full opacity, white color
 		add_child(dot)
 		dot_sprites.append(dot)
 	#print("Created ", dot_sprites.size(), " pullback dot sprites")
 
-# === PERMISSION CHECK ===
+
 func can_use_slingshot() -> bool:
-	# Check if enemy exists
 	if enemy == null:
 		#print("Enemy is null!")
 		return false
@@ -78,17 +72,13 @@ func can_use_slingshot() -> bool:
 		#print("Enemy missing is_player property/method!")
 		return false
 
-# === INPUT HANDLING ===
+
 func _input(event: InputEvent) -> void:
-	# Only proceed if this is a player enemy (check dynamically)
 	if not can_use_slingshot():
 		return
-		
-	# Early return if slingshot already used
 	if slingshotonce >= 1:
 		return
-	
-	# Handle click action press/release
+
 	if Input.is_action_just_pressed("click"):
 		is_dragging = true
 		update_pullback_line()
@@ -96,23 +86,20 @@ func _input(event: InputEvent) -> void:
 	elif Input.is_action_just_released("click"):
 		slingshotonce += 1
 		is_dragging = false
-		var direction = player.global_position - get_global_mouse_position()
 		
+		var direction = player.global_position - get_global_mouse_position()
 		var powered_direction = direction * slingshot_strength
 		player.dir = powered_direction
-		# ✅ Disable the player's camera temporarily
-		
-		# ✅ Get the player node from the scene tree (by group or name)
+
 		var player_node = get_tree().current_scene.find_child("Player", true, false)
 
-		# ✅ Disable its camera if it exists
 		if player_node and player_node.has_node("Camera2D"):
 			player_node.get_node("Camera2D").enabled = false
 			
 		# Hide the pullback line
 		hide_pullback_line()
 		
-		# Call the function to apply gravity once
+
 		player.enable_gravity()
 		# Free the HeadArea node when click is released
 		var head_area = get_node_or_null("../HeadArea")
@@ -126,13 +113,13 @@ func _input(event: InputEvent) -> void:
 	elif event is InputEventMouseMotion and is_dragging:
 		update_pullback_line()
 
-# === PULLBACK LINE VISUALIZATION ===
+
 func update_pullback_line():
 	# Skip if we don't have dot sprites
 	if dot_sprites.is_empty():
 		return
 	
-	# Get positions
+
 	var player_pos = player.global_position
 	var mouse_pos = get_global_mouse_position()
 	
@@ -164,14 +151,14 @@ func update_pullback_line():
 	for i in range(dots_needed, dot_sprites.size()):
 		dot_sprites[i].visible = false
 
-# === UTILITY FUNCTIONS ===
+
 func hide_pullback_line():
 	# Hide all dot sprites
 	for dot in dot_sprites:
 		if dot != null:
 			dot.visible = false
 
-# === VISUAL CUSTOMIZATION FUNCTIONS ===
+
 # Change the color of all pullback dots
 func set_pullback_color(color: Color):
 	for dot in dot_sprites:
