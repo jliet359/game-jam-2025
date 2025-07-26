@@ -40,7 +40,7 @@ tile_map_data = PackedByteArray("AAADABIAAAAGAAIAAAADABMAAAAGAAYAAAAEABIAAAAGAAY
 tile_set = SubResource("TileSet_cscg7")
 
 [node name="Player" parent="." instance=ExtResource("3_fqecd")]
-position = Vector2(131, 576)
+position = Vector2(-65, 576)
 
 [node name="Enemy" parent="." instance=ExtResource("2_g05yn")]
 position = Vector2(539, 576)

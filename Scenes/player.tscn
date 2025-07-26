@@ -1,8 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://buo8okfhienth"]
+[gd_scene load_steps=20 format=3 uid="uid://buo8okfhienth"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://daesbq7nmewlq" path="res://Sprites/Grayson/onlyone_blob2.png" id="2_cvnsp"]
 [ext_resource type="Script" path="res://Scripts/progress_bar.gd" id="3_6t5aa"]
+[ext_resource type="FontFile" uid="uid://cpjet2rc3r1jn" path="res://Fonts/Hydrogen Whiskey.otf" id="4_ua1ce"]
+[ext_resource type="AudioStream" uid="uid://bxend5ojedohm" path="res://Sounds/death.mp3" id="5_yv0fg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3smsa"]
 atlas = ExtResource("2_cvnsp")
@@ -172,7 +174,7 @@ theme_override_styles/background = SubResource("StyleBoxEmpty_vgqql")
 theme_override_styles/fill = SubResource("StyleBoxFlat_fkybt")
 show_percentage = false
 script = ExtResource("3_6t5aa")
-total_duration = 10.0
+total_duration = 3.0
 
 [node name="LiveTimer" type="Timer" parent="Live"]
 
@@ -187,6 +189,24 @@ color = Color(1, 0, 0, 1)
 libraries = {
 "": SubResource("AnimationLibrary_fkybt")
 }
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+texture_filter = 1
+texture_repeat = 1
+offset_left = -284.0
+offset_top = -463.0
+offset_right = -208.0
+offset_bottom = -423.0
+scale = Vector2(8.86037, 2.58708)
+theme_override_fonts/normal_font = ExtResource("4_ua1ce")
+text = "You Dried"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="RichTextLabel"]
+stream = ExtResource("5_yv0fg")
+volume_db = -10.0
 
 [connection signal="body_entered" from="PossessArea" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

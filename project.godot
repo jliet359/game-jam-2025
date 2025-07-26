@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Game Jam 2025"
-run/main_scene="res://Scenes/level_one.tscn"
+run/main_scene="res://Scenes/main_menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -27,6 +27,10 @@ window/size/viewport_height=1080
 [editor_plugins]
 
 enabled=PackedStringArray()
+
+[gui]
+
+theme/custom_font="res://Fonts/Hydrogen Whiskey.otf"
 
 [input]
 
