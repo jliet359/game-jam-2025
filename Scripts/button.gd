@@ -1,8 +1,7 @@
 extends Node
 
 
-@onready var try_again: Button = $"."
-@onready var exit: Button = $"../Exit"
+
 @onready var start_game: Button = $"."
 
 

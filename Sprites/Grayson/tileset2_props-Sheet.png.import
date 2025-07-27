@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bcgbja837h21v"
-path="res://.godot/imported/woman_2-Sheet.png-dfcf1acd65d37d732f991b7d237e98b3.ctex"
+uid="uid://da34smtmhhj4m"
+path="res://.godot/imported/tileset2_props-Sheet.png-8d84428b74f636029c9cdd1bbe3f226e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Grayson/woman_2-Sheet.png"
-dest_files=["res://.godot/imported/woman_2-Sheet.png-dfcf1acd65d37d732f991b7d237e98b3.ctex"]
+source_file="res://Sprites/Grayson/tileset2_props-Sheet.png"
+dest_files=["res://.godot/imported/tileset2_props-Sheet.png-8d84428b74f636029c9cdd1bbe3f226e.ctex"]
 
 [params]
 

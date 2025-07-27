@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bcgbja837h21v"
-path="res://.godot/imported/woman_2-Sheet.png-dfcf1acd65d37d732f991b7d237e98b3.ctex"
+uid="uid://iykoxsrlgder"
+path="res://.godot/imported/hazmatguy1-Sheet.png-625ebc1a78b61f8842dfc8655c53cd65.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Grayson/woman_2-Sheet.png"
-dest_files=["res://.godot/imported/woman_2-Sheet.png-dfcf1acd65d37d732f991b7d237e98b3.ctex"]
+source_file="res://Sprites/Grayson/hazmatguy1-Sheet.png"
+dest_files=["res://.godot/imported/hazmatguy1-Sheet.png-625ebc1a78b61f8842dfc8655c53cd65.ctex"]
 
 [params]
 

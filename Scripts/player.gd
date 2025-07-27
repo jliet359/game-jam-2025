@@ -8,12 +8,12 @@ const JUMP_VELOCITY = -400.0
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var player: CharacterBody2D = $"."
 @onready var timer: Timer = $Timer
-@onready var live: ProgressBar = $Live
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var rich_text_label: RichTextLabel = $RichTextLabel
 @onready var audio_stream_player: AudioStreamPlayer = $RichTextLabel/AudioStreamPlayer
-@onready var try_again: Button = $RichTextLabel/Container/TryAgain
-@onready var exit: Button = $RichTextLabel/Container/Exit
+@onready var control: Control = $Control
+@onready var live: ProgressBar = $Live
+
 
 
 
@@ -22,6 +22,7 @@ var dir = Vector2.ZERO
 
 func _ready():
 	rich_text_label.hide()
+	control.hide()
 	add_to_group("player")
 	possess_area.body_entered.connect(_on_possess_area_body_entered)
 
@@ -80,4 +81,5 @@ func player_died():
 	animated_sprite_2d.stop()
 	animation_player.play("die")
 	rich_text_label.show()
+	control.show()
 	audio_stream_player.play()

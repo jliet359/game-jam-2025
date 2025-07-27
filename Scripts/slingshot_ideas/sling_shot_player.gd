@@ -23,10 +23,10 @@ func _ready():
 	# Method 1
 	player_character = get_tree().current_scene.find_child("Player", true, false)
 	if player_character != null:
-		print("Found player using Method 1: find_child()") 
+		#print("Found player using Method 1: find_child()") 
 		pass
 	else:
-		print("Method 1 failed")
+		#print("Method 1 failed")
 		pass
 	"""
 	# Method 2
@@ -52,10 +52,10 @@ func _ready():
 	
 	enemy_character = get_tree().current_scene.find_child("Enemy", true, false)
 	if enemy_character != null:
-		print("Found enemy using Method 1: find_child()") 
+		#print("Found enemy using Method 1: find_child()") 
 		pass
 	else:
-		print("Method 1 failed")
+		#print("Method 1 failed")
 		pass
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
