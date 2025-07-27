@@ -5,6 +5,7 @@ var gravity_enabled: bool = false
 var on_floor = false
 @onready var sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 var floor_ani = 0
+@onready var camera_2d: Camera2D = $Camera2D
 
 
 var enemy_character = null
@@ -12,6 +13,7 @@ var player_character = null
 var has_teleported = false
 
 func _ready():
+	camera_2d.enabled = false
 	continuous_cd = RigidBody2D.CCD_MODE_CAST_RAY
 	sprite_2d.modulate.a = 0.0
 	#print("Player ready - Initial gravity_scale: ", gravity_scale)

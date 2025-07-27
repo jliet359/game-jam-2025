@@ -3,6 +3,7 @@ extends Node2D
 
 @onready var enemy = get_parent().get_parent()
 @onready var player = get_parent().get_node("SlingShotPlayer")
+@onready var camera_2d: Camera2D = $"../SlingShotPlayer/Camera2D"
 
 
 @export var slingshot_strength: float = 3.0
@@ -96,6 +97,14 @@ func _input(event: InputEvent) -> void:
 		if player_node and player_node.has_node("Camera2D"):
 			player_node.get_node("Camera2D").enabled = false
 			
+		if enemy.is_player:
+			var slingshot_camera = get_node_or_null("Camera2D")
+			
+			
+		if camera_2d:
+			camera_2d.enabled = true
+			camera_2d.make_current()
+		enemy.after_possess()
 		# Hide the pullback line
 		hide_pullback_line()
 		
