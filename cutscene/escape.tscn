@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://db8butfdic2gf"]
+
+[ext_resource type="Texture2D" uid="uid://dv4y433nbp5ao" path="res://Sprites/Grayson/PngFiles/introblobscene.png" id="1_vn6c2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kbh7m"]
+atlas = ExtResource("1_vn6c2")
+region = Rect2(0, 0, 65, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bkxrg"]
+atlas = ExtResource("1_vn6c2")
+region = Rect2(65, 0, 65, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_25jve"]
+atlas = ExtResource("1_vn6c2")
+region = Rect2(130, 0, 65, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r5aa5"]
+atlas = ExtResource("1_vn6c2")
+region = Rect2(195, 0, 65, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vwbot"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kbh7m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bkxrg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_25jve")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5aa5")
+}],
+"loop": false,
+"name": &"default",
+"speed": 1.0
+}]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+texture_filter = 1
+position = Vector2(3, 0)
+sprite_frames = SubResource("SpriteFrames_vwbot")
+frame = 3
+frame_progress = 1.0

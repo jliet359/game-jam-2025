@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://bu2vd11kw16au"]
+
+[ext_resource type="Texture2D" uid="uid://bexkvf4i3c2io" path="res://Sprites/Grayson/tank.png" id="1_mtoah"]
+[ext_resource type="Texture2D" uid="uid://b1bjcx3d33vx6" path="res://Sprites/Grayson/tank2.png" id="2_e03km"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vnvel"]
+atlas = ExtResource("1_mtoah")
+region = Rect2(0, 0, 87, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uroqy"]
+atlas = ExtResource("1_mtoah")
+region = Rect2(87, 0, 87, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_27r7g"]
+atlas = ExtResource("1_mtoah")
+region = Rect2(174, 0, 87, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r6urj"]
+atlas = ExtResource("2_e03km")
+region = Rect2(0, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q4sfe"]
+atlas = ExtResource("2_e03km")
+region = Rect2(96, 0, 96, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_styuj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vnvel")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uroqy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_27r7g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r6urj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q4sfe")
+}],
+"loop": false,
+"name": &"open",
+"speed": 2.0
+}]
+
+[node name="Tank" type="AnimatedSprite2D"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_styuj")
+animation = &"open"
+frame = 4
+frame_progress = 1.0
