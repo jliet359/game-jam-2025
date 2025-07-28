@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=3 uid="uid://bvwqiofpnmf6k"]
 
-[ext_resource type="Script" path="res://Scenes/cleaner.gd" id="1_5af4j"]
+[ext_resource type="Script" uid="uid://ccr8dlbjbm2y7" path="res://Scenes/cleaner.gd" id="1_5af4j"]
 [ext_resource type="Texture2D" uid="uid://dx7ii7lmf1hak" path="res://Sprites/Grayson/PngFiles/hazmatguy1-Sheet.png" id="1_p8y60"]
 [ext_resource type="Texture2D" uid="uid://h0krpr2nh8f6" path="res://Sprites/Grayson/PngFiles/hazmatguy1attack.png" id="2_702l5"]
 

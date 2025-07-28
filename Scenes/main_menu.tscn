@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://ky8jjgr62hi2"]
 
 [ext_resource type="Texture2D" uid="uid://b7nkafrdn20xt" path="res://Sprites/Sprite-0002.png" id="1_28flt"]
-[ext_resource type="Script" path="res://Scripts/button.gd" id="2_48xlc"]
+[ext_resource type="Script" uid="uid://r5p50omdi6l" path="res://Scripts/button.gd" id="2_48xlc"]
 [ext_resource type="AudioStream" uid="uid://dbk244ba6k5tt" path="res://Sounds/mainmenu.mp3" id="3_v4nup"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_48xlc"]

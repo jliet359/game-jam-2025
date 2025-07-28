@@ -6,11 +6,13 @@ var on_floor = false
 @onready var sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 var floor_ani = 0
 @onready var camera_2d: Camera2D = $Camera2D
+@onready var audio_stream_player: AudioStreamPlayer = $"../AudioStreamPlayer"
 
 
 var enemy_character = null
 var player_character = null
 var has_teleported = false
+var audio_played = false
 
 func _ready():
 	camera_2d.enabled = false
@@ -62,7 +64,8 @@ func _ready():
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	var floor_normal = Vector2.UP
-	
+	var was_on_floor = on_floor
+	on_floor = false
 	# Debug: Print contact information
 	if state.get_contact_count() > 0:
 		#print("Contact count: ", state.get_contact_count())
@@ -73,12 +76,10 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		var contact_normal = state.get_contact_local_normal(i)
 		var dot_product = contact_normal.dot(floor_normal)
 		#print("Contact ", i, " normal: ", contact_normal, " dot: ", dot_product)
-		
 		if dot_product > 0.7:  # Allow for slopes
 			on_floor = true
 			#print("Floor detected!")
 			break
-	
 	#print("Final on_floor status: ", on_floor)
 	if floor_ani >= 1:
 		return
@@ -113,6 +114,9 @@ func _input(_event: InputEvent) -> void:
 	modulate.a = 1.0
 
 func _physics_process(_delta: float) -> void:
+	if on_floor and not audio_played:
+		audio_stream_player.play()
+		audio_played = true
 	if not gravity_enabled:
 		# Before gravity is enabled, control velocity directly
 		linear_velocity = dir
