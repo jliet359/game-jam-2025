@@ -54,7 +54,7 @@ func _idle_behavior():
 	enemy.play("walk")
 
 func become_player():
-	var player = get_tree().get_first_node_in_group("player")
+	var _player = get_tree().get_first_node_in_group("player")
 	#print("[become_player] Called on enemy: ", name)
 	is_player = true
 	enemy.modulate = Color(0, 1, 0)
@@ -98,21 +98,6 @@ func _on_timer_2_timeout() -> void:
 		#print("[_on_timer_2_timeout] Already processed, skipping.")
 		return
 		
-	var sling = get_node_or_null("Sling")
-	if sling:
-		#print("Found Sling, about to move it")
-		var scene_root = get_parent()
-		#print("Scene root: ", scene_root.name)
-		
-		remove_child(sling)
-		#print("Removed Sling from Enemy")
-		
-		scene_root.add_child(sling)
-		#print("Added Sling to ", scene_root.name)
-		#print("Moved Sling to safety")
-	else:
-		#print("Sling not found!")
-		pass
 	
 	animation_player.play("die")
 	await animation_player.animation_finished

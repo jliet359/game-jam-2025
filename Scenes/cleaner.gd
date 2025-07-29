@@ -24,16 +24,7 @@ var is_in_attack_range: bool = false  # New variable to track if in attacking ar
 
 func _ready():
 	pace_timer = pace_time
-	
-	# Connect the AttackingArea signals
-	if attacking_area:
-		attacking_area.body_entered.connect(_on_attacking_area_entered)
-		attacking_area.body_exited.connect(_on_attacking_area_exited)
-	
-	# Connect detection area signals
-	if detection_area:
-		detection_area.body_entered.connect(_on_detection_area_entered)
-		detection_area.body_exited.connect(_on_detection_area_exited)
+
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():

@@ -64,7 +64,7 @@ func _ready():
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	var floor_normal = Vector2.UP
-	var was_on_floor = on_floor
+	var _was_on_floor = on_floor
 	on_floor = false
 	# Debug: Print contact information
 	if state.get_contact_count() > 0:

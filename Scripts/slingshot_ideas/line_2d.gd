@@ -98,7 +98,7 @@ func _input(event: InputEvent) -> void:
 			player_node.get_node("Camera2D").enabled = false
 			
 		if enemy.is_player:
-			var slingshot_camera = get_node_or_null("Camera2D")
+			var _slingshot_camera = get_node_or_null("Camera2D")
 			
 			
 		if camera_2d:
