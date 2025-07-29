@@ -7,36 +7,35 @@ var can_be_possessed = true
 var timer_reset = 0
 var has_died: bool = false
 
+@onready var enemy_timer: Timer = $ProgressBar/EnemyTimer
 @onready var enemy: AnimatedSprite2D = $AnimatedSprite2D
-@onready var timer: Timer = $Timer
 @onready var possess_area: Area2D = $Area2D
 @onready var collision: CollisionShape2D = $CollisionShape2D2
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var timer_2: Timer = $Timer2
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var color_rect: ColorRect = $ProgressBar/ColorRect
+@onready var progress_bar: ProgressBar = $ProgressBar
 
 
 
 
 func _ready():
 	modulate = Color(1, 1, 1)  # Reset to default white
-	
-	
+	color_rect.hide()
+	progress_bar.hide()
 func become_player():
 	var player = get_tree().get_first_node_in_group("player")
 	#print("[become_player] Called on enemy: ", name)
 	is_player = true
 	enemy.modulate = Color(0, 1, 0)
-	timer.one_shot = true
-	timer.wait_time = 6.0
-	timer.start()
+	color_rect.show()
+	progress_bar.show()
+	enemy_timer.start()
 	#print("[become_player] Timer started for enemy: ", name)
 	can_be_possessed = false
 	
-	
-func _on_timer_timeout() -> void:
-	#print("[_on_timer_timeout] Fired on enemy: ", name)
-	after_possess()
+
 
 
 func after_possess():
@@ -49,7 +48,7 @@ func after_possess():
 	#print("[after_possess] Running on enemy: ", name)
 	has_died = true 
 	
-	if timer: timer.stop()
+	if enemy_timer: enemy_timer.stop()
 	if timer_2: timer_2.stop()
 
 	

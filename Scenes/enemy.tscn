@@ -1,9 +1,9 @@
-[gd_scene load_steps=24 format=3 uid="uid://hsebfum41vl1"]
+[gd_scene load_steps=26 format=3 uid="uid://hsebfum41vl1"]
 
-[ext_resource type="Script" uid="uid://b7jb2nnncd4ux" path="res://Scripts/enemy.gd" id="2_1f0kj"]
+[ext_resource type="Script" path="res://Scripts/enemy.gd" id="2_1f0kj"]
 [ext_resource type="Texture2D" uid="uid://cg27ldil3hkn" path="res://Sprites/Grayson/man_1-Sheet.png" id="2_afpow"]
 [ext_resource type="Texture2D" uid="uid://wj4rvsa2upn2" path="res://Sprites/Grayson/man_falling.png" id="3_0p2qr"]
-[ext_resource type="Script" uid="uid://cqkl5h6ucfiyw" path="res://Scenes/enemy_alive.gd" id="4_ixmu6"]
+[ext_resource type="Script" path="res://Scenes/enemy_alive.gd" id="4_ixmu6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k3xsj"]
 atlas = ExtResource("2_afpow")
@@ -160,9 +160,14 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ycd1w"]
 _data = {
-&"RESET": SubResource("Animation_5vsc4"),
-&"die": SubResource("Animation_vf1su")
+"RESET": SubResource("Animation_5vsc4"),
+"die": SubResource("Animation_vf1su")
 }
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7dxu5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n5aq0"]
+bg_color = Color(0, 1, 0, 1)
 
 [node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
 collision_layer = 3
@@ -179,10 +184,6 @@ animation = &"dead"
 position = Vector2(0, -84)
 shape = SubResource("CapsuleShape2D_86en1")
 
-[node name="Timer" type="Timer" parent="." groups=["enemies"]]
-wait_time = 10.0
-one_shot = true
-
 [node name="Area2D" type="Area2D" parent="." groups=["enemies"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
@@ -198,19 +199,28 @@ libraries = {
 [node name="Timer2" type="Timer" parent="."]
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
+z_index = 1
 offset_left = -36.0
 offset_top = -233.0
-offset_right = -32.0
-offset_bottom = -206.0
+offset_right = 4.0
+offset_bottom = -195.0
 scale = Vector2(2.0092, 0.052977)
+theme_override_styles/background = SubResource("StyleBoxEmpty_7dxu5")
+theme_override_styles/fill = SubResource("StyleBoxFlat_n5aq0")
 show_percentage = false
 script = ExtResource("4_ixmu6")
+enemy_total_duration = 5.0
+
+[node name="EnemyTimer" type="Timer" parent="ProgressBar" groups=["enemies"]]
+wait_time = 10.0
+one_shot = true
 
 [node name="ColorRect" type="ColorRect" parent="ProgressBar"]
+show_behind_parent = true
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 color = Color(1, 0, 0, 1)
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]
+[connection signal="timeout" from="ProgressBar/EnemyTimer" to="." method="_on_timer_timeout"]

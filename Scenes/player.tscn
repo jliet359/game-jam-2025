@@ -1,9 +1,9 @@
 [gd_scene load_steps=21 format=3 uid="uid://buo8okfhienth"]
 
-[ext_resource type="Script" uid="uid://d2711a56r7i7i" path="res://Scripts/player.gd" id="1_cvnsp"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://6olwn2jdjk38" path="res://Sprites/Grayson/onlyone_blob2.png" id="2_cvnsp"]
-[ext_resource type="Script" uid="uid://bpmaldb0hs3er" path="res://Scripts/progress_bar.gd" id="3_6t5aa"]
-[ext_resource type="Script" uid="uid://dlaakdtpq34ec" path="res://Scenes/control.gd" id="4_t8dax"]
+[ext_resource type="Script" path="res://Scripts/progress_bar.gd" id="3_6t5aa"]
+[ext_resource type="Script" path="res://Scenes/control.gd" id="4_t8dax"]
 [ext_resource type="FontFile" uid="uid://cpjet2rc3r1jn" path="res://Fonts/Hydrogen Whiskey.otf" id="4_ua1ce"]
 [ext_resource type="AudioStream" uid="uid://bxend5ojedohm" path="res://Sounds/death.mp3" id="5_yv0fg"]
 
@@ -130,8 +130,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fkybt"]
 _data = {
-&"RESET": SubResource("Animation_vgqql"),
-&"die": SubResource("Animation_6t5aa")
+"RESET": SubResource("Animation_vgqql"),
+"die": SubResource("Animation_6t5aa")
 }
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6gob2"]
