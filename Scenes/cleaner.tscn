@@ -1,6 +1,6 @@
-[gd_scene load_steps=19 format=3 uid="uid://bvwqiofpnmf6k"]
+[gd_scene load_steps=20 format=3 uid="uid://bvwqiofpnmf6k"]
 
-[ext_resource type="Script" uid="uid://ccr8dlbjbm2y7" path="res://Scenes/cleaner.gd" id="1_5af4j"]
+[ext_resource type="Script" path="res://Scenes/cleaner.gd" id="1_5af4j"]
 [ext_resource type="Texture2D" uid="uid://dx7ii7lmf1hak" path="res://Sprites/Grayson/PngFiles/hazmatguy1-Sheet.png" id="1_p8y60"]
 [ext_resource type="Texture2D" uid="uid://h0krpr2nh8f6" path="res://Sprites/Grayson/PngFiles/hazmatguy1attack.png" id="2_702l5"]
 
@@ -107,7 +107,11 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_l30ik"]
-radius = 114.004
+radius = 162.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ile3h"]
+radius = 15.0
+height = 68.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_shjix"]
 radius = 5.0
@@ -128,8 +132,14 @@ frame_progress = 0.581584
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/DetectionArea"]
 shape = SubResource("CircleShape2D_l30ik")
 
+[node name="AttackingArea" type="Area2D" parent="AnimatedSprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/AttackingArea"]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_ile3h")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-2, 3)
+position = Vector2(0, 3)
 shape = SubResource("CapsuleShape2D_shjix")
 
 [connection signal="body_entered" from="AnimatedSprite2D/DetectionArea" to="." method="_on_detection_area_entered"]

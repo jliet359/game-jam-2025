@@ -166,10 +166,7 @@ func _on_possess_area_body_entered(body: Node2D) -> void:
 		#enemy_character.animated_sprite_2d.z_index = 1
 		
 		enemy_character.after_possess()
-		enemy_character.timer.stop()
-		enemy_character.timer_2.stop()
-		if enemy_character.timer.is_connected("timeout", Callable(enemy_character, "_on_timer_timeout")):
-			enemy_character.timer.disconnect("timeout", Callable(enemy_character, "_on_timer_timeout"))
+
 		
 		# Teleport player to the new enemy's position
 		if player_character != null:

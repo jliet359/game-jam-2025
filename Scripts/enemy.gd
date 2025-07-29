@@ -16,14 +16,43 @@ var has_died: bool = false
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var color_rect: ColorRect = $ProgressBar/ColorRect
 @onready var progress_bar: ProgressBar = $ProgressBar
+@onready var sling: Node2D = $Sling
+@onready var sling_shot_line: Line2D = $Sling/SlingShotLine
+@onready var direction_line: Line2D = $Sling/DirectionLine
 
+@export var patrol_speed: float = 100.0     # Speed while pacing
+@export var pace_time: float = 2.0          # How long to walk in each direction
 
-
+var patrol_direction: int = 1  # 1 for right, -1 for left
+var pace_timer: float = 0.0
 
 func _ready():
 	modulate = Color(1, 1, 1)  # Reset to default white
 	color_rect.hide()
 	progress_bar.hide()
+	pace_timer = pace_time  # Initialize the timer only once
+
+func _idle_behavior():
+	# Apply gravity
+	if not is_on_floor():
+		velocity += get_gravity() * get_physics_process_delta_time()
+	
+	# Handle horizontal movement
+	velocity.x = patrol_direction * patrol_speed
+	
+	# Update pace timer (DON'T reset it every frame)
+	pace_timer -= get_physics_process_delta_time()
+	
+	# Change direction when timer expires
+	if pace_timer <= 0:
+		patrol_direction *= -1
+		pace_timer = pace_time
+		print("Direction changed! New direction: ", patrol_direction)
+	
+	# Update sprite direction and animation
+	enemy.flip_h = patrol_direction > 0  # flip when moving left (fixed)
+	enemy.play("walk")
+
 func become_player():
 	var player = get_tree().get_first_node_in_group("player")
 	#print("[become_player] Called on enemy: ", name)
@@ -34,16 +63,14 @@ func become_player():
 	enemy_timer.start()
 	#print("[become_player] Timer started for enemy: ", name)
 	can_be_possessed = false
-	
-
-
 
 func after_possess():
-	
+	sling_shot_line.hide()
+	direction_line.hide()
+	progress_bar.hide()
 	if has_died:
 		#print("[after_possess] Already died. Skipping.")
 		return
-		
 		
 	#print("[after_possess] Running on enemy: ", name)
 	has_died = true 
@@ -51,7 +78,6 @@ func after_possess():
 	if enemy_timer: enemy_timer.stop()
 	if timer_2: timer_2.stop()
 
-	
 	enemy.play("dead")
 	animation_player.play("die")
 	is_player = false
@@ -93,23 +119,22 @@ func _on_timer_2_timeout() -> void:
 	#print("About to free Enemy")
 	queue_free()
 
-
 func _physics_process(delta: float) -> void:
-	if is_player:# Add the gravity.
+	if is_player:
+		# Player control logic
 		if not is_on_floor():
 			velocity += get_gravity() * delta
-				# Handle jump.
+		
 		if Input.is_action_just_pressed("jump") and is_on_floor():
 			velocity.y = JUMP_VELOCITY
-		# Get the input direction and handle the movement/deceleration.
-		# Gets input direction: -1,0,1
+		
 		var direction := Input.get_axis("move_left", "move_right")
-		# Flip the Sprite
+		
 		if direction > 0:
 			enemy.flip_h = true
 		elif direction < 0:
 			enemy.flip_h = false
-		# Play Animations
+		
 		if is_on_floor():
 			if direction == 0:
 				enemy.play("idle")
@@ -124,3 +149,8 @@ func _physics_process(delta: float) -> void:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 
 		move_and_slide()
+	else:
+		# Enemy AI behavior - only when not possessed and not dead
+		if not has_died:
+			_idle_behavior()
+			move_and_slide()

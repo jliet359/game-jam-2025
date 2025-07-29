@@ -209,7 +209,8 @@ theme_override_styles/background = SubResource("StyleBoxEmpty_7dxu5")
 theme_override_styles/fill = SubResource("StyleBoxFlat_n5aq0")
 show_percentage = false
 script = ExtResource("4_ixmu6")
-enemy_total_duration = 5.0
+enemy_total_duration = 20.0
+metadata/_edit_use_anchors_ = true
 
 [node name="EnemyTimer" type="Timer" parent="ProgressBar" groups=["enemies"]]
 wait_time = 10.0

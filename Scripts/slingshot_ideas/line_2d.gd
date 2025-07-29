@@ -6,7 +6,7 @@ extends Node2D
 @onready var camera_2d: Camera2D = $"../SlingShotPlayer/Camera2D"
 
 
-@export var slingshot_strength: float = 3.0
+@export var slingshot_strength: float = 2.0
 @export var pullback_dot_texture: Texture2D  
 @export var dot_spacing: float = 20.0
 @export var max_dots: int = 20
