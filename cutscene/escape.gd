@@ -6,12 +6,15 @@ extends Node2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var move: AnimationPlayer = $Sprite2D/AnimationPlayer
 @onready var escape_player: CharacterBody2D = $EscapePlayer
+@onready var timer: Timer = $Timer
 
 var jump_count = 0
 
 
 func _ready():
+	intro.play("new_animation")
 	sprite_2d.hide()
+	intro.play("new_animation")
 	escape_player.visible = false
 	print("[Cutscene] Ready")
 	start_cutscene()
@@ -49,4 +52,10 @@ func handle_jump():
 		
 func move_player():
 	escape_player.visible = true
+	timer.start()
 	return
+
+
+func _on_timer_timeout() -> void:
+	animation_player.play("pan")
+	pass # Replace with function body.

@@ -11,7 +11,7 @@ extends Node
 @onready var cleaner_target_marker: Marker2D = $Tank/CleanerCharacterArea2d/CleanerCharacterMarker
 
 @onready var timer: Timer = $Tank/Timer
-@onready var animation_player: AnimationPlayer = $CanvasGroup/CanvasModulate/AnimationPlayer
+@onready var animation_player: AnimationPlayer = $CanvasGroup/IntroCanvasModulate/AnimationPlayer
 
 
 var movement_speed = 100.0
