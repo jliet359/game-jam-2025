@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bu2vd11kw16au"]
+[gd_scene load_steps=11 format=3 uid="uid://bu2vd11kw16au"]
 
 [ext_resource type="Texture2D" uid="uid://bexkvf4i3c2io" path="res://Sprites/Grayson/tank.png" id="1_mtoah"]
 [ext_resource type="Texture2D" uid="uid://b1bjcx3d33vx6" path="res://Sprites/Grayson/tank2.png" id="2_e03km"]
@@ -46,9 +46,27 @@ animations = [{
 "speed": 2.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xu0hu"]
+size = Vector2(17, 56)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nlgvi"]
+size = Vector2(15, 58)
+
 [node name="Tank" type="AnimatedSprite2D"]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_styuj")
 animation = &"open"
 frame = 4
 frame_progress = 1.0
+
+[node name="Player2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2D"]
+position = Vector2(38, 0)
+shape = SubResource("RectangleShape2D_xu0hu")
+
+[node name="Cleaner2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cleaner2D"]
+position = Vector2(-43, 0)
+shape = SubResource("RectangleShape2D_nlgvi")

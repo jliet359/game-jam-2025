@@ -21,7 +21,7 @@ region = Rect2(195, 0, 65, 64)
 [sub_resource type="SpriteFrames" id="SpriteFrames_vwbot"]
 animations = [{
 "frames": [{
-"duration": 1.0,
+"duration": 5.0,
 "texture": SubResource("AtlasTexture_kbh7m")
 }, {
 "duration": 1.0,

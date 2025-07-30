@@ -67,7 +67,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2awb6")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack",
 "speed": 5.0
 }, {
@@ -124,8 +124,6 @@ script = ExtResource("1_5af4j")
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_r1m0v")
 animation = &"idle"
-frame = 2
-frame_progress = 0.581584
 
 [node name="DetectionArea" type="Area2D" parent="AnimatedSprite2D"]
 
@@ -142,5 +140,8 @@ shape = SubResource("CapsuleShape2D_ile3h")
 position = Vector2(0, 3)
 shape = SubResource("CapsuleShape2D_shjix")
 
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_finished"]
 [connection signal="body_entered" from="AnimatedSprite2D/DetectionArea" to="." method="_on_detection_area_entered"]
 [connection signal="body_exited" from="AnimatedSprite2D/DetectionArea" to="." method="_on_detection_area_exited"]
+[connection signal="area_entered" from="AnimatedSprite2D/AttackingArea" to="." method="_on_attacking_area_entered"]
+[connection signal="area_exited" from="AnimatedSprite2D/AttackingArea" to="." method="_on_attacking_area_exited"]

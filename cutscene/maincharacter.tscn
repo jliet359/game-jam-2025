@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://bc3bkoaqbtbhm"]
+
+[ext_resource type="Texture2D" uid="uid://ybg06vsghhhr" path="res://Sprites/Grayson/maincharacter.png" id="1_vsppc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5aev"]
+atlas = ExtResource("1_vsppc")
+region = Rect2(0, 0, 65, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6mwu1"]
+atlas = ExtResource("1_vsppc")
+region = Rect2(65, 0, 65, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oaj2r"]
+atlas = ExtResource("1_vsppc")
+region = Rect2(130, 0, 65, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xldgu"]
+atlas = ExtResource("1_vsppc")
+region = Rect2(195, 0, 65, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l3b5s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j5aev")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6mwu1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oaj2r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xldgu")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_l3b5s")
+animation = &"walk"

@@ -13,7 +13,7 @@ const JUMP_VELOCITY = -400.0
 @onready var audio_stream_player: AudioStreamPlayer = $RichTextLabel/AudioStreamPlayer
 @onready var control: Control = $Control
 @onready var live: ProgressBar = $Live
-
+var enemy_character = null
 
 
 
@@ -78,6 +78,8 @@ func _on_timer_timeout() -> void:
 
 func player_died():
 	player_dead = true
+	enemy_character = get_tree().current_scene.find_child("Enemy", true, false)
+	enemy_character.after_possess()
 	animated_sprite_2d.stop()
 	animation_player.play("die")
 	rich_text_label.show()
