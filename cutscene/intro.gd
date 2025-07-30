@@ -10,12 +10,16 @@ extends Node
 @onready var main_target_marker: Marker2D = $Tank/MainCharacterArea2d/MainCharacterMarker
 @onready var cleaner_target_marker: Marker2D = $Tank/CleanerCharacterArea2d/CleanerCharacterMarker
 
-@onready var animation_player = $AnimationPlayer
+@onready var timer: Timer = $Tank/Timer
+@onready var animation_player: AnimationPlayer = $CanvasGroup/CanvasModulate/AnimationPlayer
+
 
 var movement_speed = 100.0
 var is_cutscene_playing = false
 var moving_main = false
 var moving_cleaner = false
+var timer_amount = 0
+
 
 func _ready():
 	print("[Cutscene] Ready")
@@ -63,18 +67,29 @@ func move_character_towards(character: Node2D, target_pos: Vector2, delta: float
 
 func check_cutscene_complete():
 	tank.play("default")
-	next_tank()
-
-func next_tank():
-	tank.play("final")
-	main_character.modulate.a = 0.0
-	end_cutscene()
+	timer.start()
 
 func end_cutscene():
+	main_character.modulate.a = 0.0
 	tank.play("close")
 	print("[Cutscene] Ending...")
 	is_cutscene_playing = false
-	cutscene_completed()
 
 func cutscene_completed():
+	animation_player.play("new_animation")
 	print("[Cutscene] Cutscene completed!")
+
+func change_scene():
+	var new_scene = preload("res://cutscene/escape.tscn")
+	get_tree().change_scene_to_packed(new_scene)
+func _on_timer_timeout() -> void:
+	timer_amount += 1
+	if timer_amount == 1:
+		timer.start()
+		end_cutscene()
+	elif timer_amount == 2:
+		timer.start()
+		cutscene_completed()
+	elif timer_amount == 3:
+		timer.start()
+		change_scene()
