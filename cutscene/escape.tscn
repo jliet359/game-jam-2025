@@ -1,11 +1,13 @@
-[gd_scene load_steps=24 format=4 uid="uid://db8butfdic2gf"]
+[gd_scene load_steps=27 format=4 uid="uid://db8butfdic2gf"]
 
 [ext_resource type="Script" path="res://cutscene/escape.gd" id="1_r1ekk"]
 [ext_resource type="Texture2D" uid="uid://dv4y433nbp5ao" path="res://Sprites/Grayson/PngFiles/introblobscene.png" id="1_vn6c2"]
 [ext_resource type="Texture2D" uid="uid://cxp2uwnh8m35x" path="res://Sprites/Grayson/tileset_test-Sheet.png" id="1_x7f2r"]
 [ext_resource type="Texture2D" uid="uid://da34smtmhhj4m" path="res://Sprites/Grayson/tileset2_props-Sheet.png" id="2_13jls"]
 [ext_resource type="Texture2D" uid="uid://bhq2rbfjnjobw" path="res://Sprites/Grayson/movement.png" id="5_54yra"]
-[ext_resource type="PackedScene" uid="uid://ccq7hm2btqvp6" path="res://cutscene/escape_player.tscn" id="6_h4qxi"]
+[ext_resource type="PackedScene" uid="uid://buo8okfhienth" path="res://Scenes/player.tscn" id="6_pr0cn"]
+[ext_resource type="PackedScene" uid="uid://hsebfum41vl1" path="res://Scenes/enemy.tscn" id="7_7aub2"]
+[ext_resource type="PackedScene" uid="uid://b00vx0vejpj5v" path="res://Scenes/slingshot_ideas/sling.tscn" id="7_ojswj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lsnc6"]
 texture = ExtResource("1_x7f2r")
@@ -117,6 +119,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(990, 928)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Camera2D:zoom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(4, 4)]
+}
 
 [sub_resource type="Animation" id="Animation_ro621"]
 resource_name = "shake"
@@ -133,9 +147,26 @@ tracks/0/keys = {
 "values": [Vector2(990, 928), Vector2(995, 928), Vector2(986, 928), Vector2(995, 928), Vector2(986, 928), Vector2(995, 928)]
 }
 
+[sub_resource type="Animation" id="Animation_d8g7q"]
+resource_name = "pan"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Camera2D:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(4, 4), Vector2(1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_c0jin"]
 _data = {
 "RESET": SubResource("Animation_eadu0"),
+"pan": SubResource("Animation_d8g7q"),
 "shake": SubResource("Animation_ro621")
 }
 
@@ -148,18 +179,6 @@ tracks/0/path = NodePath(".:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -180,18 +199,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tuu2n"]
@@ -289,5 +296,14 @@ offset_bottom = 888.0
 text = "press
 jump"
 
-[node name="EscapePlayer" parent="." instance=ExtResource("6_h4qxi")]
-position = Vector2(979, 936)
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("6_pr0cn")]
+
+[node name="Enemy" parent="." instance=ExtResource("7_7aub2")]
+position = Vector2(1275, 936)
+
+[node name="Sling" parent="Enemy" instance=ExtResource("7_ojswj")]
+position = Vector2(-597, -499)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
