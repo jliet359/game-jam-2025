@@ -16,7 +16,7 @@ offset_top = -62.7394
 offset_right = -22.1623
 offset_bottom = -22.7394
 scale = Vector2(56.6605, 33.9358)
-color = Color(1, 0.00392157, 1, 1)
+color = Color(0.578044, 0.000243157, 0.578058, 1)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 offset_left = 47.0

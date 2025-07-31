@@ -37,7 +37,7 @@ offset_top = -62.7394
 offset_right = -22.1623
 offset_bottom = -22.7394
 scale = Vector2(3.39381, 3.45207)
-color = Color(1, 0.00392157, 1, 1)
+color = Color(0.732325, 0.000410267, 0.732344, 1)
 
 [node name="Skip Intro" type="Button" parent="."]
 modulate = Color(1, 0, 1, 1)
