@@ -8,6 +8,9 @@ var floor_ani = 0
 @onready var camera_2d: Camera2D = $Camera2D
 @onready var audio_stream_player: AudioStreamPlayer = $"../AudioStreamPlayer"
 
+# ENEMY COUNTER - Add these variables
+var enemies_entered_count: int = 0
+var possessed_enemies: Array[String] = []  # Track which enemies were possessed
 
 var enemy_character = null
 var player_character = null
@@ -147,9 +150,29 @@ func enable_gravity():
 	# Check project settings
 	#print("Project gravity: ", ProjectSettings.get_setting("physics/2d/default_gravity"))
 	#print("Project gravity vector: ", ProjectSettings.get_setting("physics/2d/default_gravity_vector"))
+
+# ENEMY COUNTER FUNCTIONS - Add these helper functions
+func get_enemies_entered_count() -> int:
+	return enemies_entered_count
+
+func get_possessed_enemies_list() -> Array[String]:
+	return possessed_enemies.duplicate()
+
+func reset_enemy_counter():
+	enemies_entered_count = 0
+	possessed_enemies.clear()
+	print("Enemy counter reset")
 	
 func _on_possess_area_body_entered(body: Node2D) -> void:
 	if not on_floor and body.is_in_group("enemies") and body.has_method("become_player") and body.can_be_possessed:
+		
+		# INCREMENT ENEMY COUNTER - Add this section
+		enemies_entered_count += 1
+		var enemy_name = body.name if body.has_method("get_name") else "Unknown_Enemy_" + str(enemies_entered_count)
+		possessed_enemies.append(enemy_name)
+		print("Enemy entered! Count: ", enemies_entered_count, " | Enemy: ", enemy_name)
+		print("Total enemies possessed: ", possessed_enemies)
+		
 		# ✅ Disable its camera if it exists
 		if player_character and player_character.has_node("Camera2D"):
 			player_character.get_node("Camera2D").enabled = true

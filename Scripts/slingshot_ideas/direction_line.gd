@@ -7,7 +7,9 @@ extends Node2D
 
 @export var trajectory_dot_texture: Texture2D
 @export var arrow_head_texture: Texture2D
-@export var slingshot_strength: float = 3.0
+@export var slingshot_strength: float = 4
+
+
 
 
 var is_dragging = false
@@ -81,7 +83,8 @@ func create_arrow_head_sprite():
 	#print("Created arrow head sprite")
 
 func can_use_trajectory() -> bool:
-	if enemy == null:
+	# Add null check for enemy
+	if enemy == null or not is_instance_valid(enemy):
 		return false
 	
 	if enemy.has_method("is_player"):
@@ -114,12 +117,19 @@ func _input(event: InputEvent) -> void:
 
 
 func update_trajectory():
+	# Add null check for player
+	if player == null or not is_instance_valid(player):
+		#print("Player is null or invalid, hiding trajectory")
+		hide_trajectory()
+		return
+		
 	if dot_sprites.is_empty():
 		#print("No dot sprites available for trajectory")
 		return
 	
 	var player_pos = player.global_position
 	var mouse_pos = get_global_mouse_position()
+	
 	
 	# EXACT same calculation as your physics code
 	var direction = player_pos - mouse_pos
@@ -141,6 +151,10 @@ func update_trajectory():
 	# PHYSICS SIMULATION - FIXED to match RigidBody2D behavior
 	var points_used = 0
 	for i in range(dots_to_show):
+		# Check if dot sprite is still valid
+		if i >= dot_sprites.size() or dot_sprites[i] == null or not is_instance_valid(dot_sprites[i]):
+			break
+			
 		var t = i * time_step
 		
 		# Standard projectile motion equations
@@ -160,10 +174,11 @@ func update_trajectory():
 	
 	# Hide unused dots
 	for i in range(points_used, dot_sprites.size()):
-		dot_sprites[i].visible = false
+		if dot_sprites[i] != null and is_instance_valid(dot_sprites[i]):
+			dot_sprites[i].visible = false
 	
 	# Position arrow head
-	if points_used >= 2 and arrow_head_sprite != null:
+	if points_used >= 2 and arrow_head_sprite != null and is_instance_valid(arrow_head_sprite):
 		var last_pos = dot_sprites[points_used - 1].global_position
 		var second_last_pos = dot_sprites[points_used - 2].global_position
 		
@@ -175,16 +190,16 @@ func update_trajectory():
 
 func hide_trajectory():
 	for dot in dot_sprites:
-		if dot != null:
+		if dot != null and is_instance_valid(dot):
 			dot.visible = false
-	if arrow_head_sprite != null:
+	if arrow_head_sprite != null and is_instance_valid(arrow_head_sprite):
 		arrow_head_sprite.visible = false
 
 func set_trajectory_opacity(opacity: float):
 	for dot in dot_sprites:
-		if dot != null:
+		if dot != null and is_instance_valid(dot):
 			dot.modulate.a = opacity * 0.7
-	if arrow_head_sprite != null:
+	if arrow_head_sprite != null and is_instance_valid(arrow_head_sprite):
 		arrow_head_sprite.modulate.a = opacity
 
 func animate_trajectory_in():
@@ -200,7 +215,7 @@ func debug_physics_values():
 	#print("Trajectory gravity: ", gravity_strength)
 	#print("Time step: ", time_step)
 	#print("Slingshot strength: ", slingshot_strength)
-	if player:
+	if player != null and is_instance_valid(player):
 		#print("Player gravity scale: ", player.gravity_scale)
 		#print("Player linear velocity: ", player.linear_velocity)
 		pass

@@ -316,6 +316,40 @@ libraries = {
 "": SubResource("AnimationLibrary_tuu2n")
 }
 
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 8.0
+offset_top = 753.0
+offset_right = 48.0
+offset_bottom = 793.0
+scale = Vector2(8.75848, 0.977211)
+color = Color(0, 0, 0, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect"]
+top_level = true
+texture_filter = 1
+offset_left = 8.0
+offset_top = 753.0
+offset_right = 390.0
+offset_bottom = 793.0
+scale = Vector2(0.76035, 0.725303)
+text = "I was sick... I was promised saving ... This is my last hope..."
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="ColorRect"]
+top_level = true
+texture_filter = 1
+offset_left = 8.0
+offset_top = 767.0
+offset_right = 390.0
+offset_bottom = 807.0
+scale = Vector2(0.76035, 0.725303)
+text = "It worked for steve Rodgers why wouldnt it work for me..."
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
 [connection signal="area_entered" from="Tank/MainCharacterArea2d" to="." method="_on_main_character_area_entered"]
 [connection signal="area_entered" from="Tank/CleanerCharacterArea2d" to="." method="_on_cleaner_character_area_entered"]
 [connection signal="timeout" from="Tank/Timer" to="." method="_on_timer_timeout"]

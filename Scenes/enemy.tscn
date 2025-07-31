@@ -170,6 +170,7 @@ _data = {
 bg_color = Color(0, 1, 0, 1)
 
 [node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
+position = Vector2(8, 0)
 collision_layer = 3
 script = ExtResource("2_1f0kj")
 
@@ -209,7 +210,6 @@ theme_override_styles/background = SubResource("StyleBoxEmpty_7dxu5")
 theme_override_styles/fill = SubResource("StyleBoxFlat_n5aq0")
 show_percentage = false
 script = ExtResource("4_ixmu6")
-enemy_total_duration = 20.0
 metadata/_edit_use_anchors_ = true
 
 [node name="EnemyTimer" type="Timer" parent="ProgressBar" groups=["enemies"]]

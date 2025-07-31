@@ -23,6 +23,9 @@ var has_died: bool = false
 @export var patrol_speed: float = 100.0     # Speed while pacing
 @export var pace_time: float = 2.0          # How long to walk in each direction
 
+
+
+
 var patrol_direction: int = 1  # 1 for right, -1 for left
 var pace_timer: float = 0.0
 

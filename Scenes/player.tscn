@@ -146,6 +146,9 @@ script = ExtResource("1_cvnsp")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-1, -4)
 offset = Vector2(0, -350)
+limit_top = -300
+limit_right = 6219
+limit_smoothed = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -221,7 +224,7 @@ theme_override_styles/background = SubResource("StyleBoxEmpty_6gob2")
 theme_override_styles/fill = SubResource("StyleBoxFlat_wkg1s")
 show_percentage = false
 script = ExtResource("3_6t5aa")
-total_duration = 10.0
+total_duration = 5.0
 metadata/_edit_use_anchors_ = true
 
 [node name="LiveTimer" type="Timer" parent="Live"]

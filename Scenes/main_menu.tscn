@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://ky8jjgr62hi2"]
+[gd_scene load_steps=8 format=3 uid="uid://ky8jjgr62hi2"]
 
 [ext_resource type="Texture2D" uid="uid://b7nkafrdn20xt" path="res://Sprites/Sprite-0002.png" id="1_28flt"]
-[ext_resource type="Script" uid="uid://r5p50omdi6l" path="res://Scripts/button.gd" id="2_48xlc"]
+[ext_resource type="Script" path="res://Scripts/button.gd" id="2_48xlc"]
+[ext_resource type="Script" path="res://Scenes/skip_intro.gd" id="2_nx5rb"]
 [ext_resource type="AudioStream" uid="uid://dbk244ba6k5tt" path="res://Sounds/mainmenu.mp3" id="3_v4nup"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_48xlc"]
@@ -38,6 +39,29 @@ offset_bottom = -22.7394
 scale = Vector2(3.39381, 3.45207)
 color = Color(1, 0.00392157, 1, 1)
 
+[node name="Skip Intro" type="Button" parent="."]
+modulate = Color(1, 0, 1, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -197.0
+offset_top = 59.0
+offset_right = 220.0
+offset_bottom = 174.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxTexture_48xlc")
+text = "Skip Intro"
+script = ExtResource("2_nx5rb")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Skip Intro"]
+stream = ExtResource("3_v4nup")
+autoplay = true
+
 [node name="StartGame" type="Button" parent="."]
 modulate = Color(1, 0, 1, 1)
 layout_mode = 1
@@ -47,9 +71,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -197.0
-offset_top = -56.0
+offset_top = -98.0
 offset_right = 220.0
-offset_bottom = 59.0
+offset_bottom = 17.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 30

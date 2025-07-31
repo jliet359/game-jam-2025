@@ -1,10 +1,12 @@
-[gd_scene load_steps=24 format=4 uid="uid://db8butfdic2gf"]
+[gd_scene load_steps=27 format=4 uid="uid://db8butfdic2gf"]
 
 [ext_resource type="Script" path="res://cutscene/escape.gd" id="1_r1ekk"]
 [ext_resource type="Texture2D" uid="uid://dv4y433nbp5ao" path="res://Sprites/Grayson/PngFiles/introblobscene.png" id="1_vn6c2"]
 [ext_resource type="Texture2D" uid="uid://cxp2uwnh8m35x" path="res://Sprites/Grayson/tileset_test-Sheet.png" id="1_x7f2r"]
 [ext_resource type="Texture2D" uid="uid://da34smtmhhj4m" path="res://Sprites/Grayson/tileset2_props-Sheet.png" id="2_13jls"]
 [ext_resource type="Texture2D" uid="uid://bhq2rbfjnjobw" path="res://Sprites/Grayson/movement.png" id="5_54yra"]
+[ext_resource type="PackedScene" uid="uid://ccq7hm2btqvp6" path="res://cutscene/escape_player.tscn" id="6_gdmlc"]
+[ext_resource type="Texture2D" uid="uid://c805g5mif4up3" path="res://Sprites/Grayson/arrowtutorual.png" id="6_rj7wg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lsnc6"]
 texture = ExtResource("1_x7f2r")
@@ -240,6 +242,9 @@ _data = {
 "new_animation": SubResource("Animation_vnft5")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ra5ri"]
+size = Vector2(70, 146)
+
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_r1ekk")
 
@@ -280,6 +285,10 @@ texture_filter = 1
 position = Vector2(825, 872)
 texture = ExtResource("5_54yra")
 
+[node name="Sprite2D2" type="Sprite2D" parent="Sprite2D"]
+position = Vector2(301, 22)
+texture = ExtResource("6_rj7wg")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
 libraries = {
 "": SubResource("AnimationLibrary_ld6te")
@@ -290,9 +299,54 @@ offset_left = 955.0
 offset_top = 848.0
 offset_right = 995.0
 offset_bottom = 888.0
+scale = Vector2(1.26091, 0.647016)
 text = "press
-jump"
+spacebar"
+fit_content = true
+scroll_active = false
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 859.0
+offset_top = 796.0
+offset_right = 899.0
+offset_bottom = 836.0
+scale = Vector2(5.76959, 0.868693)
+color = Color(0, 0, 0, 1)
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="ColorRect"]
+offset_left = 1.38657
+offset_top = -6.91414e-05
+offset_right = 123.387
+offset_bottom = 59.9999
+scale = Vector2(0.310118, 0.805845)
+text = "OH. no... what am I "
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="ColorRect/RichTextLabel2"]
+offset_left = 2.79448
+offset_top = 22.8561
+offset_right = 136.794
+offset_bottom = 82.8561
+scale = Vector2(0.839741, 0.767476)
+text = "I need to escape now"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
 
 [node name="Timer" type="Timer" parent="."]
 
+[node name="EscapePlayer" parent="." instance=ExtResource("6_gdmlc")]
+position = Vector2(1023, 936)
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(1023, 936)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(243, -71)
+shape = SubResource("RectangleShape2D_ra5ri")
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]

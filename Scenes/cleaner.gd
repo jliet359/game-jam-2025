@@ -27,24 +27,17 @@ var enemy_character = null
 func _ready():
 	pace_timer = pace_time
 	#print("[READY] Enemy initialized, state: ", state)
-	
-	# Connect signals properly
+
 	if detection_area:
 		detection_area.body_entered.connect(_on_detection_area_entered)
 		detection_area.body_exited.connect(_on_detection_area_exited)
-		#print("[READY] Detection area signals connected")
-	else:
-		#print("[ERROR] Detection area not found!")
-		pass
 	
 	if attacking_area:
 		attacking_area.body_entered.connect(_on_attacking_area_entered)
 		attacking_area.body_exited.connect(_on_attacking_area_exited)
-		#print("[READY] Attacking area signals connected")
-	else:
-		#print("[ERROR] Attacking area not found!")
-		pass
-
+		
+		
+		
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -136,7 +129,7 @@ func _attack_behavior():
 	# ✅ If not in range *and not attacking*, return to chasing
 	if not is_in_attack_range:
 		#print("[ATTACK] No longer in attack range, switching to chase")
-		state = "chasing"
+		state = "idle"
 		return
 	
 	# Start attack
@@ -147,8 +140,8 @@ func _attack_behavior():
 		animated_sprite.play("attack")
 		velocity.x = 0
 		#print("[ATTACK] Attacking! Timer reset to: ", attack_timer)
-		enemy_character = get_tree().current_scene.find_child("Enemy", true, false)
-		enemy_character.after_possess()
+		if target_player and target_player.has_method("after_possess"):
+			target_player.after_possess()
 	else:
 		attack_timer -= get_physics_process_delta_time()
 
@@ -192,7 +185,7 @@ func _on_attacking_area_entered(body: Node2D):
 		target_player = body
 		is_in_attack_range = true
 		state = "attacking"
-		#print("[ATTACK_AREA] Player entered attack range! Switching to attack")
+		print("[ATTACK_AREA] Player entered attack range! Switching to attack")
 
 func _on_attacking_area_exited(body: Node2D):
 	#print("[ATTACK_AREA] Body exited: ", body.name)

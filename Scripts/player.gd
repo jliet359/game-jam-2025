@@ -30,9 +30,8 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-	
 	if player_dead == false:
-
+		# Handle jump.
 		# Handle jump.
 		if Input.is_action_just_pressed("jump") and is_on_floor():
 			velocity.y = JUMP_VELOCITY
@@ -85,3 +84,15 @@ func player_died():
 	rich_text_label.show()
 	control.show()
 	audio_stream_player.play()
+	
+	
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("restart"):
+		var path = "res://Scenes/level_one.tscn"
+		if not ResourceLoader.exists(path):
+			#print("Scene path invalid:", path)
+			pass
+		else:
+			#print("Loading scene:", path)
+			var level_reload_scene = load(path)
+			get_tree().change_scene_to_packed(level_reload_scene)

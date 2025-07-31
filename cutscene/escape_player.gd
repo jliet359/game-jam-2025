@@ -7,7 +7,7 @@ const GRAVITY = 980.0  # Add gravity constant
 @onready var camera = $Camera2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var player: CharacterBody2D = $"."
-@onready var audio_stream_player: AudioStreamPlayer = $RichTextLabel/AudioStreamPlayer
+@onready var area_2d: Area2D = $"../Area2D"
 
 
 var dir = Vector2.ZERO

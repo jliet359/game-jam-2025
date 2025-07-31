@@ -7,6 +7,7 @@ extends Node2D
 @onready var move: AnimationPlayer = $Sprite2D/AnimationPlayer
 @onready var escape_player: CharacterBody2D = $EscapePlayer
 @onready var timer: Timer = $Timer
+@onready var area_2d: Area2D = $Area2D
 
 var jump_count = 0
 
@@ -18,8 +19,7 @@ func _ready():
 	escape_player.visible = false
 	print("[Cutscene] Ready")
 	start_cutscene()
-	
-	
+
 func start_cutscene():
 	pass
 
@@ -56,6 +56,9 @@ func move_player():
 	return
 
 
-func _on_timer_timeout() -> void:
-	animation_player.play("pan")
-	pass # Replace with function body.
+
+func _on_body_entered(body: Node2D) -> void:
+	if body== escape_player:
+		var new_scene = preload("res://Scenes/level_one.tscn")
+		get_tree().change_scene_to_packed(new_scene)
+		pass # Replace with function body.
