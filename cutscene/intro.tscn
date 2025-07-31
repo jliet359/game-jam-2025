@@ -327,6 +327,7 @@ color = Color(0, 0, 0, 1)
 [node name="RichTextLabel" type="RichTextLabel" parent="ColorRect"]
 top_level = true
 texture_filter = 1
+layout_mode = 0
 offset_left = 8.0
 offset_top = 753.0
 offset_right = 390.0
@@ -340,6 +341,7 @@ autowrap_mode = 0
 [node name="RichTextLabel2" type="RichTextLabel" parent="ColorRect"]
 top_level = true
 texture_filter = 1
+layout_mode = 0
 offset_left = 8.0
 offset_top = 767.0
 offset_right = 390.0

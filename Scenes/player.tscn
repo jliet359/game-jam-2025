@@ -217,14 +217,14 @@ text = "Exit"
 [node name="Live" type="ProgressBar" parent="."]
 z_index = 1
 offset_left = -575.0
-offset_top = -841.0
+offset_top = -577.0
 offset_right = 577.0
-offset_bottom = -801.0
+offset_bottom = -537.0
 theme_override_styles/background = SubResource("StyleBoxEmpty_6gob2")
 theme_override_styles/fill = SubResource("StyleBoxFlat_wkg1s")
 show_percentage = false
 script = ExtResource("3_6t5aa")
-total_duration = 5.0
+total_duration = 10.0
 metadata/_edit_use_anchors_ = true
 
 [node name="LiveTimer" type="Timer" parent="Live"]

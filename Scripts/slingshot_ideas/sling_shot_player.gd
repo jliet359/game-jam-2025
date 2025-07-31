@@ -176,7 +176,7 @@ func _on_possess_area_body_entered(body: Node2D) -> void:
 		# ✅ Disable its camera if it exists
 		if player_character and player_character.has_node("Camera2D"):
 			player_character.get_node("Camera2D").enabled = true
-			print("switching camera")
+			#print("switching camera")
 		#print("[_on_possess_area_body_entered] Hit body: ", body.name)
 		#print("infected from slingshot")
 		#print("[Possession Triggered] Possessing enemy: ", body.name)

@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://ddbikynj32evc"]
+
+[ext_resource type="Script" path="res://cutscene/final.gd" id="1_y8fd8"]
+[ext_resource type="Script" path="res://cutscene/mainmenufinal.gd" id="2_r6iu1"]
+[ext_resource type="AudioStream" uid="uid://dbk244ba6k5tt" path="res://Sounds/mainmenu.mp3" id="3_mg0n6"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1or5m"]
+
+[node name="Final" type="Node2D"]
+script = ExtResource("1_y8fd8")
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+show_behind_parent = true
+offset_left = -62.1623
+offset_top = -62.7394
+offset_right = -22.1623
+offset_bottom = -22.7394
+scale = Vector2(56.6605, 33.9358)
+color = Color(1, 0.00392157, 1, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 47.0
+offset_top = 107.0
+offset_right = 129.0
+offset_bottom = 147.0
+scale = Vector2(22.5398, 10.0092)
+text = "You Escaped!"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="mainmenu" type="Button" parent="."]
+modulate = Color(0, 0.752941, 0.184314, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 390.0
+offset_top = 352.0
+offset_right = 1137.0
+offset_bottom = 633.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 55
+theme_override_styles/normal = SubResource("StyleBoxTexture_1or5m")
+text = "Main Menu"
+script = ExtResource("2_r6iu1")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="mainmenu"]
+stream = ExtResource("3_mg0n6")
+autoplay = true

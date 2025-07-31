@@ -106,10 +106,10 @@ texture = ExtResource("6_3n6u3")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Sprite2D"]
 texture_filter = 1
-offset_left = -95.5938
-offset_top = -80.2221
-offset_right = 87.4062
-offset_bottom = -40.2221
+offset_left = -125.985
+offset_top = -103.337
+offset_right = 104.015
+offset_bottom = -43.3367
 scale = Vector2(1.15218, 1.3286)
 text = "Press R to reset 
 Click and Drag to Sling shot "
@@ -133,5 +133,7 @@ autowrap_mode = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(5966, -66)
 shape = SubResource("RectangleShape2D_lqdh0")
+
+[node name="Timer" type="Timer" parent="."]
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

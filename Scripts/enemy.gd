@@ -50,7 +50,7 @@ func _idle_behavior():
 	if pace_timer <= 0:
 		patrol_direction *= -1
 		pace_timer = pace_time
-		print("Direction changed! New direction: ", patrol_direction)
+		#print("Direction changed! New direction: ", patrol_direction)
 	
 	# Update sprite direction and animation
 	enemy.flip_h = patrol_direction > 0  # flip when moving left (fixed)

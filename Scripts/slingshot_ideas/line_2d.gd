@@ -7,8 +7,8 @@ extends Node2D
 @export var base_slingshot_strength: float = 3.0  # Base multiplier
 @export var max_slingshot_strength: float = 3.0   # Maximum multiplier
 @export var min_pull_distance: float = 50.0       # Minimum distance for any force
-@export var max_pull_distance: float = 300.0      # Distance for maximum force
-@export var min_x_force: float = 50            # Minimum horizontal force
+@export var max_pull_distance: float = 200      # Distance for maximum force
+@export var min_x_force: float = 30           # Minimum horizontal force
 @export var min_y_force: float = 300            # Minimum vertical force
 @export var pullback_dot_texture: Texture2D  
 @export var dot_spacing: float = 20.0
@@ -24,6 +24,16 @@ func _ready():
 		create_dot_sprites()
 	else:
 		pass
+
+# === SAFETY CHECKS ===
+func is_player_valid() -> bool:
+	return player != null and is_instance_valid(player)
+
+func is_enemy_valid() -> bool:
+	return enemy != null and is_instance_valid(enemy)
+
+func is_camera_valid() -> bool:
+	return camera_2d != null and is_instance_valid(camera_2d)
 
 # === TEXTURE LOADING ===
 func ensure_texture_loaded():
@@ -49,7 +59,7 @@ func create_dot_sprites():
 		dot_sprites.append(dot)
 
 func can_use_slingshot() -> bool:
-	if enemy == null:
+	if not is_enemy_valid():
 		return false
 	
 	if enemy.has_method("is_player"):
@@ -88,6 +98,13 @@ func calculate_slingshot_strength(pull_distance: float) -> float:
 	return strength
 
 func _input(event: InputEvent) -> void:
+	# Early exit if player is invalid
+	if not is_player_valid():
+		if is_dragging:
+			is_dragging = false
+			hide_pullback_line()
+		return
+		
 	if not can_use_slingshot():
 		return
 	if slingshotonce >= 1:
@@ -101,6 +118,11 @@ func _input(event: InputEvent) -> void:
 		slingshotonce += 1
 		is_dragging = false
 		
+		# Safety check before accessing player position
+		if not is_player_valid():
+			print("Warning: Player became invalid during slingshot operation")
+			return
+			
 		var direction = player.global_position - get_global_mouse_position()
 		var pull_distance = direction.length()
 		
@@ -112,38 +134,50 @@ func _input(event: InputEvent) -> void:
 		var final_force = apply_minimum_forces(base_force)
 		
 		# Optional: Add some debug output
-		print("Pull distance: ", pull_distance, " | Strength: ", dynamic_strength)
-		print("Base force: ", base_force, " | Final force: ", final_force)
+		#print("Pull distance: ", pull_distance, " | Strength: ", dynamic_strength)
+		#print("Base force: ", base_force, " | Final force: ", final_force)
 		
 		player.dir = final_force
 
 		var player_node = get_tree().current_scene.find_child("Player", true, false)
 
-		if player_node and player_node.has_node("Camera2D"):
-			player_node.get_node("Camera2D").enabled = false
+		if player_node and is_instance_valid(player_node) and player_node.has_node("Camera2D"):
+			var player_camera = player_node.get_node("Camera2D")
+			if is_instance_valid(player_camera):
+				player_camera.enabled = false
 			
-		if enemy.is_player:
+		if is_enemy_valid() and enemy.is_player:
 			var _slingshot_camera = get_node_or_null("Camera2D")
 			
-		if camera_2d:
+		if is_camera_valid():
 			camera_2d.enabled = true
 			camera_2d.make_current()
-		enemy.after_possess()
+			
+		if is_enemy_valid():
+			enemy.after_possess()
 		
 		hide_pullback_line()
-		player.enable_gravity()
+		
+		if is_player_valid():
+			player.enable_gravity()
+			player.gravity_scale = 1.0
+			if player.has_node("sprite_2d") or "sprite_2d" in player:
+				player.sprite_2d.modulate.a = 1.0
 		
 		var head_area = get_node_or_null("../HeadArea")
-		if head_area:
+		if head_area and is_instance_valid(head_area):
 			head_area.queue_free()
-		
-		player.gravity_scale = 1.0
-		player.sprite_2d.modulate.a = 1.0
 		
 	elif event is InputEventMouseMotion and is_dragging:
 		update_pullback_line()
 
 func update_pullback_line():
+	# Safety checks
+	if not is_player_valid():
+		hide_pullback_line()
+		is_dragging = false
+		return
+		
 	if dot_sprites.is_empty():
 		return
 	
@@ -163,7 +197,7 @@ func update_pullback_line():
 	dots_needed = min(dots_needed, dot_sprites.size())
 	
 	for i in range(dots_needed):
-		if i < dot_sprites.size():
+		if i < dot_sprites.size() and is_instance_valid(dot_sprites[i]):
 			var dot_distance = (i + 1) * dot_spacing
 			var dot_position = player_pos + line_direction * dot_distance
 			
@@ -175,16 +209,17 @@ func update_pullback_line():
 			dot_sprites[i].modulate.a = 0.5 + (fade_factor * 0.5)
 	
 	for i in range(dots_needed, dot_sprites.size()):
-		dot_sprites[i].visible = false
+		if i < dot_sprites.size() and is_instance_valid(dot_sprites[i]):
+			dot_sprites[i].visible = false
 
 func hide_pullback_line():
 	for dot in dot_sprites:
-		if dot != null:
+		if dot != null and is_instance_valid(dot):
 			dot.visible = false
 
 func set_pullback_color(color: Color):
 	for dot in dot_sprites:
-		if dot != null:
+		if dot != null and is_instance_valid(dot):
 			dot.modulate = color
 
 func set_dot_spacing(new_spacing: float):
@@ -193,11 +228,20 @@ func set_dot_spacing(new_spacing: float):
 func animate_pullback_in():
 	var tween = create_tween()
 	for dot in dot_sprites:
-		if dot != null and dot.visible:
+		if dot != null and is_instance_valid(dot) and dot.visible:
 			dot.modulate.a = 0.0
 	tween.tween_method(set_pullback_opacity, 0.0, 1.0, 0.1)
 
 func set_pullback_opacity(opacity: float):
 	for dot in dot_sprites:
-		if dot != null and dot.visible:
+		if dot != null and is_instance_valid(dot) and dot.visible:
 			dot.modulate.a = opacity
+
+# Clean up function to call when the slingshot is no longer needed
+func cleanup():
+	is_dragging = false
+	hide_pullback_line()
+	for dot in dot_sprites:
+		if dot != null and is_instance_valid(dot):
+			dot.queue_free()
+	dot_sprites.clear()
