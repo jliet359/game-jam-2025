@@ -286,7 +286,7 @@ position = Vector2(825, 872)
 texture = ExtResource("5_54yra")
 
 [node name="Sprite2D2" type="Sprite2D" parent="Sprite2D"]
-position = Vector2(301, 22)
+position = Vector2(361, 15)
 texture = ExtResource("6_rj7wg")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
